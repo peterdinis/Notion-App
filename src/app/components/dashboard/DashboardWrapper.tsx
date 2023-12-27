@@ -32,7 +32,7 @@ const DashboardWrapper = async () => {
         items-center
   "
       >
-        <DashboardSetup />
+        <DashboardSetup user={user} />
       </div>
     );
 

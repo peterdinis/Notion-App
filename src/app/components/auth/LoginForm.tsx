@@ -56,7 +56,7 @@ const LoginForm: FC = () => {
         className: "bg-red-300",
         title: "Login failed try again",
       });
-      setSubmitError(err as unknown as string);
+      console.log(err);
     }
   };
 

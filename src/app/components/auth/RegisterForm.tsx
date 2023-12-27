@@ -71,7 +71,7 @@ const RegisterForm: FC = () => {
         className: "bg-red-300",
         title: "register failed try again",
       });
-      setSubmitError(err as unknown as string);
+      console.log(err);
     }
   };
 

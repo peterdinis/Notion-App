@@ -8,11 +8,11 @@ const HeroWrapper: FC = () => {
     <div className="min-h-full flex flex-col dark:bg-[#1F1F1F]">
       <div className="flex flex-col items-center justify-center text-center gap-y-8 flex-1 px-6 pb-10">
         <div className="max-w-3xl space-y-4">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold">
+          <h1 className="text-3xl dark:text-white sm:text-5xl md:text-6xl font-bold">
             Your Ideas, Documents, & Plans. Unified. Welcome to{" "}
             <span className="underline">Notion</span>
           </h1>
-          <h3 className="text-base sm:text-xl md:text-2xl font-medium">
+          <h3 className="text-base dark:text-white sm:text-xl md:text-2xl font-medium">
             Notion is the connected workspace where <br />
             better, faster work happens.
           </h3>

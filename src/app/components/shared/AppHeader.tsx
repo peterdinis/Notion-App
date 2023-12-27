@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { FC, useState } from 'react';
+import { ComponentPropsWithoutRef, ElementRef, FC, forwardRef, useState } from 'react';
 import {cn} from "@/lib/utils";
 import {
   NavigationMenu,
@@ -13,13 +13,6 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
-
-const routes = [
-  { title: 'Features', href: '#features' },
-  { title: 'Reasources', href: '#resources' },
-  { title: 'Pricing', href: '#pricing' },
-  { title: 'Testimonials', href: '#testimonial' },
-];
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -145,35 +138,6 @@ const AppHeader: FC = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger
-              onClick={() => setPath('#pricing')}
-              className={cn({
-                'dark:text-white': path === '#pricing',
-                'dark:text-white/40': path !== '#pricing',
-                'font-normal': true,
-                'text-xl': true,
-              })}
-            >
-              Pricing
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4  md:grid-row-2  ">
-                <ListItem
-                  title="Pro Plan"
-                  href={'#'}
-                >
-                  Unlock full power with collaboration.
-                </ListItem>
-                <ListItem
-                  title={'free Plan'}
-                  href={'#'}
-                >
-                  Great for teams just starting out.
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
             <NavigationMenuContent>
               <ul
                 className="grid w-[400px]
@@ -240,9 +204,9 @@ const AppHeader: FC = () => {
 
 export default AppHeader;
 
-const ListItem = React.forwardRef<
-  React.ElementRef<'a'>,
-  React.ComponentPropsWithoutRef<'a'>
+const ListItem = forwardRef<
+  ElementRef<'a'>,
+  ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>

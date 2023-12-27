@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { FC, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FC, useMemo, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,11 +18,27 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader } from "lucide-react";
+import clsx from "clsx";
 
 const RegisterForm: FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [submitError, setSubmitError] = useState("");
+  const [confirmation, setConfirmation] = useState(false);
 
-  const [submitError, setSubmitError] = useState<string>("");
+  const constExchangeError = useMemo(() => {
+    if(!searchParams) return "";
+    return searchParams.get("error_description");
+  }, [searchParams]);
+  
+
+  const confirmSpecialStyles = useMemo(() =>{
+    clsx("bg-primary", {
+        "bg-red-500/10": constExchangeError,
+        "border-red-500/50": constExchangeError,
+        "text-red-700": constExchangeError
+    })
+  }, [])
 
   const form = useForm<z.infer<typeof FormSchema>>({
     mode: "onChange",

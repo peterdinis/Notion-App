@@ -18,11 +18,12 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader } from "lucide-react";
+import { loginUser } from "@/actions/authActions";
 
 const LoginForm: FC = () => {
   const router = useRouter();
 
-  const [submitError, setSubmitError] = useState<string>("");
+  const [submitError, setSubmitError] = useState("");
 
   const form = useForm<z.infer<typeof FormSchema>>({
     mode: "onChange",
@@ -36,8 +37,15 @@ const LoginForm: FC = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
-    formData: any
-  ) => {};
+    formData
+  ) => {
+    try {
+      loginUser(formData.email, formData.password);
+      router.push("/dashboard");
+    } catch (err) {
+      setSubmitError(err as unknown as string);
+    }
+  };
 
   return (
     <div className="min-h-full flex justify-center align-top dark:bg-[#1F1F1F]">

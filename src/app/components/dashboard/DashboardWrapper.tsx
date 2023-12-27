@@ -13,8 +13,6 @@ const DashboardWrapper = async () => {
 
   if (!user) return;
 
-  console.log("U", user);
-
   const workspace = await db.workspace.findFirst({
     where: {
       userId: user.id as unknown as number,

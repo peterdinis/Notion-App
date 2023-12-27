@@ -10,6 +10,8 @@ import {
 import { FC, useState } from "react";
 import { AuthUser } from "@supabase/supabase-js";
 import EmojiPicker from "../shared/EmojiComponent";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 interface IDashboardSetupProps {
   user: AuthUser;
@@ -43,6 +45,16 @@ const DashboardSetup: FC<IDashboardSetupProps> = ({
                   <EmojiPicker getValue={(emoji) => setSelectedEmoji(emoji)}>
                     {selectedEmoji}
                   </EmojiPicker>
+                </div>
+                <div className="w-full">
+                    <Label htmlFor="workspaceName"
+                    className="text-sm text-muted-foreground">
+                        <Input 
+                            id="workspaceName"
+                            type="text"
+                            placeholder="Worksapce Name"
+                        />
+                    </Label>
                 </div>
               </div>
             </div>

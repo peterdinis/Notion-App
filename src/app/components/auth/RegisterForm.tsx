@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader } from "lucide-react";
 
-const LoginForm: FC = () => {
+const RegisterForm: FC = () => {
   const router = useRouter();
 
   const [submitError, setSubmitError] = useState<string>("");
@@ -117,4 +117,4 @@ const LoginForm: FC = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

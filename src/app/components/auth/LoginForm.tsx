@@ -19,10 +19,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader } from "lucide-react";
 import { loginUser } from "@/actions/authActions";
+import { useToast } from "@/components/ui/use-toast";
 
 const LoginForm: FC = () => {
   const router = useRouter();
-
+  const { toast } = useToast();
   const [submitError, setSubmitError] = useState("");
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -41,8 +42,20 @@ const LoginForm: FC = () => {
   ) => {
     try {
       loginUser(formData.email, formData.password);
+      toast({
+        variant: "default",
+        duration: 2000,
+        className: "bg-green-300",
+        title: "Successfully login to app",
+      });
       router.push("/dashboard");
     } catch (err) {
+      toast({
+        variant: "default",
+        duration: 2000,
+        className: "bg-red-300",
+        title: "Login failed try again",
+      });
       setSubmitError(err as unknown as string);
     }
   };

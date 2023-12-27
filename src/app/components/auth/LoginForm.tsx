@@ -18,14 +18,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader } from "lucide-react";
-import { loginUser } from "@/actions/authActions";
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/context/AuthContext";
 
 const LoginForm: FC = () => {
   const router = useRouter();
   const { toast } = useToast();
   const [submitError, setSubmitError] = useState("");
-
+  const {signIn} = useAuth();
   const form = useForm<z.infer<typeof FormSchema>>({
     mode: "onChange",
     resolver: zodResolver(FormSchema),
@@ -41,7 +41,7 @@ const LoginForm: FC = () => {
     formData
   ) => {
     try {
-      loginUser(formData.email, formData.password);
+      await signIn(formData.email, formData.password);
       toast({
         variant: "default",
         duration: 2000,

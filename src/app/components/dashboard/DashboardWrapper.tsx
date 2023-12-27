@@ -1,21 +1,18 @@
 import React from "react";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
-import { supabaseServerClient } from "@/lib/supabaseSetup";
 import DashboardSetup from "./DashboardSetup";
+import { useAuth } from "@/context/AuthContext";
+import { valibotResolver } from "@hookform/resolvers/valibot";
 
 const DashboardWrapper = async () => {
-  const supabase = supabaseServerClient;
+  const {currentUser} = useAuth();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) return;
+  if (!valibotResolver) return;
 
   const workspace = await db.workspace.findFirst({
     where: {
-      userId: user.id as unknown as number,
+      userId: currentUser.id as unknown as number,
     },
   });
 
@@ -30,7 +27,7 @@ const DashboardWrapper = async () => {
         items-center
   "
       >
-        <DashboardSetup user={user} />
+        <DashboardSetup user={currentUser} />
       </div>
     );
 

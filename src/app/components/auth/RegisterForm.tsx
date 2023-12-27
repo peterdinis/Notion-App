@@ -19,8 +19,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader } from "lucide-react";
 import clsx from "clsx";
-import { registerUser } from "@/actions/authActions";
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/context/AuthContext";
 
 const RegisterForm: FC = () => {
   const router = useRouter();
@@ -32,6 +32,8 @@ const RegisterForm: FC = () => {
     if (!searchParams) return "";
     return searchParams.get("error_description");
   }, [searchParams]);
+
+  const {signUp} = useAuth();
 
   const confirmSpecialStyles = useMemo(() => {
     clsx("bg-primary", {
@@ -56,7 +58,7 @@ const RegisterForm: FC = () => {
     formData
   ) => {
     try {
-      registerUser(formData.email, formData.password);
+      await signUp(formData.email, formData.password);
       toast({
         variant: "default",
         duration: 2000,

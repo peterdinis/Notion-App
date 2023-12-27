@@ -63,7 +63,7 @@ const RegisterForm: FC = () => {
         className: "bg-green-300",
         title: "Successfully register to app",
       });
-      router.push("/dashboard");
+      router.push("/login");
     } catch (err) {
       toast({
         variant: "default",

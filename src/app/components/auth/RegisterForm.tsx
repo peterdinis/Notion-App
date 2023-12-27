@@ -52,8 +52,10 @@ const RegisterForm: FC = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
-    formData: any
-  ) => {};
+    formData
+  ) => {
+
+  };
 
   return (
     <div className="min-h-full flex justify-center align-top dark:bg-[#1F1F1F]">
@@ -119,7 +121,7 @@ const RegisterForm: FC = () => {
             size="lg"
             disabled={isLoading}
           >
-            {!isLoading ? "Login" : <Loader />}
+            {!isLoading ? "Register" : <Loader />}
           </Button>
           <span className="self-container  dark:text-white">
             Already have an account?{" "}

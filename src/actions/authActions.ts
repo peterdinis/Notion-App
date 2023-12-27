@@ -1,11 +1,9 @@
 "use server";
 
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { supabaseClient } from "@/lib/supabaseSetup";
 
 export async function loginUser(email: string, password: string) {
-  const supabase = createRouteHandlerClient({ cookies });
-  const response = await supabase.auth.signInWithPassword({
+  const response = await supabaseClient.auth.signInWithPassword({
     email,
     password,
   });
@@ -14,8 +12,7 @@ export async function loginUser(email: string, password: string) {
 }
 
 export async function registerUser(email: string, password: string) {
-  const supabase = createRouteHandlerClient({ cookies });
-  const { data } = await supabase.from("users").select("*").eq("email", email);
+  const { data } = await supabaseClient.from("users").select("*").eq("email", email);
 
   if (data?.length)
     return {
@@ -24,7 +21,7 @@ export async function registerUser(email: string, password: string) {
       },
     };
 
-  const respone = await supabase.auth.signUp({
+  const respone = await supabaseClient.auth.signUp({
     email,
     password,
     options: {

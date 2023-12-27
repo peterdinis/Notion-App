@@ -19,26 +19,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader } from "lucide-react";
 import clsx from "clsx";
+import { registerUser } from "@/actions/authActions";
+import { useToast } from "@/components/ui/use-toast";
 
 const RegisterForm: FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [submitError, setSubmitError] = useState("");
   const [confirmation, setConfirmation] = useState(false);
-
+  const { toast } = useToast();
   const constExchangeError = useMemo(() => {
-    if(!searchParams) return "";
+    if (!searchParams) return "";
     return searchParams.get("error_description");
   }, [searchParams]);
-  
 
-  const confirmSpecialStyles = useMemo(() =>{
+  const confirmSpecialStyles = useMemo(() => {
     clsx("bg-primary", {
-        "bg-red-500/10": constExchangeError,
-        "border-red-500/50": constExchangeError,
-        "text-red-700": constExchangeError
-    })
-  }, [])
+      "bg-red-500/10": constExchangeError,
+      "border-red-500/50": constExchangeError,
+      "text-red-700": constExchangeError,
+    });
+  }, []);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     mode: "onChange",
@@ -54,7 +55,24 @@ const RegisterForm: FC = () => {
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
     formData
   ) => {
-
+    try {
+      registerUser(formData.email, formData.password);
+      toast({
+        variant: "default",
+        duration: 2000,
+        className: "bg-green-300",
+        title: "Successfully register to app",
+      });
+      router.push("/dashboard");
+    } catch (err) {
+      toast({
+        variant: "default",
+        duration: 2000,
+        className: "bg-red-300",
+        title: "register failed try again",
+      });
+      setSubmitError(err as unknown as string);
+    }
   };
 
   return (

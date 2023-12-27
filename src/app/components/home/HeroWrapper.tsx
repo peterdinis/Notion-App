@@ -18,8 +18,8 @@ const HeroWrapper: FC = () => {
           </h3>
         </div>
         <Button asChild>
-          <Link href="/documents">
-            Enter Notion
+          <Link href="/login">
+             Try Notion
             <MoveRight className="h-4 w-4 ml-2" />
           </Link>
         </Button>

@@ -128,7 +128,7 @@ const LoginForm: FC = () => {
           </Button>
           <span className="self-container  dark:text-white">
             Dont have an account?{" "}
-            <Link href="/signup" className="text-primary">
+            <Link href="/register" className="text-primary">
               Sign Up
             </Link>
           </span>

@@ -1,6 +1,10 @@
 import { FC } from "react";
 
-const Sidebar: FC = () => {
+interface ISidebarProps {
+  params: any;
+}
+
+const Sidebar: FC<ISidebarProps> = ({params}: ISidebarProps) => {
   return <></>;
 };
 

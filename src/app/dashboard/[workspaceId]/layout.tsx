@@ -1,4 +1,4 @@
-import Sidebar from '@/app/components/shared/Sidebar';
+import Sidebar from '@/app/components/shared/sidebar/Sidebar';
 import { FC, ReactNode } from 'react';
 
 interface LayoutProps {

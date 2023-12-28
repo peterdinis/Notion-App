@@ -12,6 +12,7 @@ import { AuthUser } from "@supabase/supabase-js";
 import EmojiPicker from "../shared/EmojiComponent";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { FieldValues, useForm } from "react-hook-form";
 
 interface IDashboardSetupProps {
   user: AuthUser;
@@ -21,6 +22,13 @@ const DashboardSetup: FC<IDashboardSetupProps> = ({
   user,
 }: IDashboardSetupProps) => {
   const [selectedEmoji, setSelectedEmoji] = useState("💼");
+  const {} = useForm<FieldValues>({
+    mode: "onChange",
+    defaultValues: {
+      logo: "",
+      workspace: "",
+    },
+  });
   return (
     <Card
       className="w-[800px]
@@ -47,14 +55,17 @@ const DashboardSetup: FC<IDashboardSetupProps> = ({
                   </EmojiPicker>
                 </div>
                 <div className="w-full">
-                    <Label htmlFor="workspaceName"
-                    className="text-sm text-muted-foreground">
-                        <Input 
-                            id="workspaceName"
-                            type="text"
-                            placeholder="Worksapce Name"
-                        />
-                    </Label>
+                  <Label
+                    htmlFor="workspaceName"
+                    className="text-sm text-muted-foreground"
+                  >
+                    <Input
+                      id="workspaceName"
+                      type="text"
+                      placeholder="Worksapce Name"
+                      className="bg-transparent"
+                    />
+                  </Label>
                 </div>
               </div>
             </div>

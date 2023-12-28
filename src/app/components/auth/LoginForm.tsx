@@ -42,6 +42,7 @@ const LoginForm: FC = () => {
   ) => {
     try {
       loginUser(formData.email, formData.password);
+
       toast({
         variant: "default",
         duration: 2000,

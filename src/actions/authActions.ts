@@ -7,7 +7,6 @@ export async function loginUser(email: string, password: string) {
     email,
     password,
   });
-
   return response;
 }
 

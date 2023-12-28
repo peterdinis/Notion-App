@@ -1,11 +1,7 @@
 import { FC } from "react";
 
 const Sidebar: FC = () => {
-    return (
-        <>
-        
-        </>
-    )
-}
+  return <></>;
+};
 
 export default Sidebar;

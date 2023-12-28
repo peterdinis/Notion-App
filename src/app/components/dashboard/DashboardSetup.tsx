@@ -1,40 +1,44 @@
-'use client';
-import { AuthUser } from '@supabase/supabase-js';
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { CreateWorkspaceFormSchema } from '@/app/types/WorkspaceTypes';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
-import { Label } from '@radix-ui/react-label';
-import { Loader } from 'lucide-react';
-import { v4 } from 'uuid';
-import {useRouter} from "next/navigation";
-import EmojiPicker from '../shared/EmojiComponent';
-import { supabaseClient } from '@/lib/supabaseSetup';
+"use client";
+import { AuthUser } from "@supabase/supabase-js";
+import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { CreateWorkspaceFormSchema } from "@/app/types/WorkspaceTypes";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { Label } from "@radix-ui/react-label";
+import { Loader } from "lucide-react";
+import { v4 } from "uuid";
+import { useRouter } from "next/navigation";
+import EmojiPicker from "../shared/EmojiComponent";
+import { supabaseClient } from "@/lib/supabaseSetup";
 
 interface DashboardSetupProps {
   user: AuthUser;
 }
 
-const DashboardSetup: React.FC<DashboardSetupProps> = ({
-  user,
-}) => {
+const DashboardSetup: React.FC<DashboardSetupProps> = ({ user }) => {
   const { toast } = useToast();
   const router = useRouter();
-  const [selectedEmoji, setSelectedEmoji] = useState('💼');
+  const [selectedEmoji, setSelectedEmoji] = useState("💼");
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting: isLoading, errors },
   } = useForm<z.infer<typeof CreateWorkspaceFormSchema>>({
-    mode: 'onChange',
+    mode: "onChange",
     defaultValues: {
-      logo: '',
-      workspaceName: '',
+      logo: "",
+      workspaceName: "",
     },
   });
 
@@ -49,18 +53,18 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({
     if (file) {
       try {
         const { data, error } = await supabaseClient.storage
-          .from('workspace-logos')
+          .from("workspace-logos")
           .upload(`workspaceLogo.${workspaceUUID}`, file, {
-            cacheControl: '3600',
+            cacheControl: "3600",
             upsert: true,
           });
-        if (error) throw new Error('');
+        if (error) throw new Error("");
         filePath = data.path;
       } catch (error) {
-        console.log('Error', error);
+        console.log("Error", error);
         toast({
-          variant: 'destructive',
-          title: 'Error! Could not upload your workspace logo',
+          variant: "destructive",
+          title: "Error! Could not upload your workspace logo",
         });
       }
     }
@@ -70,23 +74,23 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({
         createdAt: new Date().toISOString(),
         iconId: selectedEmoji,
         id: workspaceUUID,
-        inTrash: '',
+        inTrash: "",
         title: value.workspaceName,
         workspaceOwner: user.id,
         logo: filePath || null,
-        bannerUrl: '',
+        bannerUrl: "",
       };
       toast({
-        title: 'Workspace Created',
+        title: "Workspace Created",
         description: `${newWorkspace.title} has been created successfully.`,
       });
 
       router.replace(`/dashboard/${newWorkspace.id}`);
     } catch (error) {
-      console.log(error, 'Error');
+      console.log(error, "Error");
       toast({
-        variant: 'destructive',
-        title: 'Could not create your workspace',
+        variant: "destructive",
+        title: "Could not create your workspace",
         description:
           "Oops! Something went wrong, and we couldn't create your workspace. Try again or come back later.",
       });
@@ -118,7 +122,9 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({
             gap-4"
             >
               <div className="text-5xl">
-                <EmojiPicker getValue={(emoji: string) => setSelectedEmoji(emoji)}>
+                <EmojiPicker
+                  getValue={(emoji: string) => setSelectedEmoji(emoji)}
+                >
                   {selectedEmoji}
                 </EmojiPicker>
               </div>
@@ -136,8 +142,8 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({
                   type="text"
                   placeholder="Workspace Name"
                   disabled={isLoading}
-                  {...register('workspaceName', {
-                    required: 'Workspace name is required',
+                  {...register("workspaceName", {
+                    required: "Workspace name is required",
                   })}
                 />
                 <small className="text-red-600">
@@ -159,7 +165,7 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({
                 type="file"
                 accept="image/*"
                 placeholder="Workspace Name"
-                {...register('logo', {
+                {...register("logo", {
                   required: false,
                 })}
               />
@@ -168,11 +174,8 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({
               </small>
             </div>
             <div className="self-end">
-              <Button
-                disabled={isLoading}
-                type="submit"
-              >
-                {!isLoading ? 'Create Workspace' : <Loader />}
+              <Button disabled={isLoading} type="submit">
+                {!isLoading ? "Create Workspace" : <Loader />}
               </Button>
             </div>
           </div>

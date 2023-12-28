@@ -53,7 +53,7 @@ const RegisterForm: FC = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
-    formData
+    formData,
   ) => {
     try {
       registerUser(formData.email, formData.password);

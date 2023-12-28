@@ -11,7 +11,10 @@ export async function loginUser(email: string, password: string) {
 }
 
 export async function registerUser(email: string, password: string) {
-  const { data } = await supabaseClient.from("users").select("*").eq("email", email);
+  const { data } = await supabaseClient
+    .from("users")
+    .select("*")
+    .eq("email", email);
 
   if (data?.length)
     return {

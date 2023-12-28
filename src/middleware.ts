@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+import { NextRequest, NextResponse } from "next/server";
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
 /* TODO: Fix later */
 export async function middleware(req: NextRequest) {
-/*   const res = NextResponse.next();
+  /*   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res }, {
     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL as unknown as string,
     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string

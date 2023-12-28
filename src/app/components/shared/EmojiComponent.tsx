@@ -1,12 +1,12 @@
-'use client';
-import dynamic from 'next/dynamic';
-import React from 'react';
+"use client";
+import dynamic from "next/dynamic";
+import React from "react";
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
+} from "@/components/ui/popover";
 
 interface EmojiPickerProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ interface EmojiPickerProps {
 }
 
 const EmojiPicker: React.FC<EmojiPickerProps> = ({ children, getValue }) => {
-  const Picker = dynamic(() => import('emoji-picker-react'));
+  const Picker = dynamic(() => import("emoji-picker-react"));
   const onClick = (selectedEmoji: any) => {
     if (getValue) getValue(selectedEmoji.emoji);
   };

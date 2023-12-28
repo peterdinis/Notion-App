@@ -11,11 +11,11 @@ const DashboardWrapper = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) return;
+  /* if (!user) return; */
 
   const workspace = await db.workspace.findFirst({
     where: {
-      userId: user.id as unknown as number,
+      userId: user?.id as unknown as number,
     },
   });
 
@@ -30,7 +30,7 @@ const DashboardWrapper = async () => {
         items-center
   "
       >
-        <DashboardSetup user={user} />
+        <DashboardSetup user={user!} />
       </div>
     );
 

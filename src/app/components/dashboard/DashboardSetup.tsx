@@ -22,7 +22,7 @@ const DashboardSetup: FC<IDashboardSetupProps> = ({
   user,
 }: IDashboardSetupProps) => {
   const [selectedEmoji, setSelectedEmoji] = useState("💼");
-  const {} = useForm<FieldValues>({
+  const {register, handleSubmit, reset, formState: {isSubmitting, errors, isLoading}} = useForm<FieldValues>({
     mode: "onChange",
     defaultValues: {
       logo: "",
@@ -64,10 +64,38 @@ const DashboardSetup: FC<IDashboardSetupProps> = ({
                       type="text"
                       placeholder="Worksapce Name"
                       className="bg-transparent"
+                      disabled={isLoading}
+                      {...register("workspaceName", {
+                        required: "Workspace is requeired"
+                      })}
                     />
+                    <small className="text-red-700">
+                      {errors?.workspaceName?.message?.toString()}
+                    </small>
                   </Label>
                 </div>
               </div>
+              <div className="w-full">
+                  <Label
+                    htmlFor="workspaceLogo"
+                    className="text-sm text-muted-foreground"
+                  >
+                    <Input
+                      id="workspaceName"
+                      type="file"
+                      accept="image/*"
+                      placeholder="Worksapce Logo"
+                      className="bg-transparent"
+                      disabled={isLoading}
+                      {...register("workspaceName", {
+                        required: "Workspace is requeired"
+                      })}
+                    />
+                    <small className="text-red-700">
+                      {errors?.workspaceLogo?.message?.toString()}
+                    </small>
+                  </Label>
+                </div>
             </div>
           </form>
         </CardContent>

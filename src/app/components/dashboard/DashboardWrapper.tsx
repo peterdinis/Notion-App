@@ -7,10 +7,10 @@ import { cookies } from 'next/headers';
 
 const DashboardWrapper = async () => {
     const supabase = createServerComponentClient({ cookies }, {
-        supabaseUrl: 'https://gsydqpkptrrvvtxabbmf.supabase.co',
-        supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdzeWRxcGtwdHJydnZ0eGFiYm1mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDM2Njk3NjMsImV4cCI6MjAxOTI0NTc2M30.hm-F3mnVbTN7tQB3Era3XvrFw__klzjfd_FbYItkh14',
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL as unknown as string,
+        supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string
     });
-
+    
     const {
         data: { user },
     } = await supabase.auth.getUser();

@@ -6,10 +6,15 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
 const DashboardWrapper = async () => {
-    const supabase = createServerComponentClient({ cookies }, {
-        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL as unknown as string,
-        supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string
-    });
+    const supabase = createServerComponentClient(
+        { cookies },
+        {
+            supabaseUrl: process.env
+                .NEXT_PUBLIC_SUPABASE_URL as unknown as string,
+            supabaseKey: process.env
+                .NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string,
+        },
+    );
 
     const {
         data: { user },
@@ -21,7 +26,7 @@ const DashboardWrapper = async () => {
 
     const workspace = await db.workspace.findFirst({
         where: {
-            userId: user?.id
+            userId: user?.id,
         },
     });
 

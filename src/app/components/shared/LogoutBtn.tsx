@@ -7,7 +7,8 @@ import { FC } from 'react';
 const LogoutBtn: FC = () => {
     const supabase = createClientComponentClient({
         supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL as unknown as string,
-        supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string
+        supabaseKey: process.env
+            .NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string,
     });
 
     async function handleSignOut() {

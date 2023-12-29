@@ -3,7 +3,7 @@ import { AuthUser } from '@supabase/supabase-js';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { CreateWorkspaceFormSchema } from '@/app/types/WorkspaceTypes';
+import { CreateWorkspaceFormSchema } from '@/types/WorkspaceTypes';
 import { Button } from '@/components/ui/button';
 import {
     Card,

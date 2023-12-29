@@ -5,7 +5,7 @@ import { FC, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormSchema } from '@/app/types/AuthTypes';
+import { FormSchema } from '@/types/AuthTypes';
 import {
     Form,
     FormControl,

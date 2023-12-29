@@ -1,17 +1,22 @@
 import React from 'react';
 import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
-import { supabaseServerClient } from '@/supabase/supabaseSetup';
 import DashboardSetup from './DashboardSetup';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import {cookies} from "next/headers";
 
 const DashboardWrapper = async () => {
-    const supabase = supabaseServerClient;
+
+    const supabase = createServerComponentClient({ cookies });
 
     const {
         data: { user },
     } = await supabase.auth.getUser();
 
-    /* if (!user) return; */
+    if (!user) {
+        redirect('/login');
+    }
+
 
     const workspace = await db.workspace.findFirst({
         where: {

@@ -16,6 +16,7 @@ model User {
    password  String
    fullName  String
    workspaces Workspace[]
+   collaborators Collaborator[]
 }
 
 model Workspace {
@@ -31,6 +32,7 @@ model Workspace {
   folders   Folder[]
   user      User      @relation(fields: [userId], references: [id])
   userId    String
+   collaborators Collaborator[]
 }
 
 model Folder {
@@ -60,4 +62,13 @@ model Files {
   bannerUrl   String
   folder      Folder    @relation(fields: [folderId], references: [id])
   folderId    Int 
+}
+
+model Collaborator {
+  id          String     @id @default(uuid())
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id])
+  workspaceId Int
+  createdAt   DateTime   @default(now()) @db.Timestamp(3)
+  user        User       @relation(fields: [userId], references: [id])
+  userId      String
 }

@@ -2,13 +2,14 @@ import { cn } from '@/lib/utils';
 import { FC } from 'react';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { getFolders } from '@/supabase/queries/queries';
 
 interface ISidebarProps {
     params: any;
     className?: string;
 }
 
-const Sidebar: FC<ISidebarProps> = async ({ className }: ISidebarProps) => {
+const Sidebar: FC<ISidebarProps> = async ({ className, params }: ISidebarProps) => {
     const supabase = createServerComponentClient(
         { cookies },
         {
@@ -24,6 +25,10 @@ const Sidebar: FC<ISidebarProps> = async ({ className }: ISidebarProps) => {
     } = await supabase.auth.getUser();
 
     if (!user) return;
+
+    const {data, error} = await getFolders(params.workspaceId); // string vs int bug must be fixed
+
+    console.log(data, error);
 
     return (
         <aside

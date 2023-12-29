@@ -10,7 +10,7 @@ const DashboardWrapper = async () => {
         supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL as unknown as string,
         supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string
     });
-    
+
     const {
         data: { user },
     } = await supabase.auth.getUser();
@@ -18,8 +18,6 @@ const DashboardWrapper = async () => {
     if (!user) {
         redirect('/login');
     }
-
-    console.log(user);
 
     const workspace = await db.workspace.findFirst({
         where: {

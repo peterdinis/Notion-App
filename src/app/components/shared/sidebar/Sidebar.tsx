@@ -1,6 +1,7 @@
-import { supabaseServerClient } from '@/supabase/supabaseSetup';
 import { cn } from '@/lib/utils';
 import { FC } from 'react';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 
 interface ISidebarProps {
     params: any;
@@ -8,11 +9,13 @@ interface ISidebarProps {
 }
 
 const Sidebar: FC<ISidebarProps> = async ({
-    params,
     className,
 }: ISidebarProps) => {
-    const supabase = supabaseServerClient;
-
+    const supabase = createServerComponentClient({ cookies }, {
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL as unknown as string,
+        supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string
+    });
+    
     const {
         data: { user },
     } = await supabase.auth.getUser();

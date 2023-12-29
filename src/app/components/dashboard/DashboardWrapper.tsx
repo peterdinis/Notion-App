@@ -17,6 +17,8 @@ const DashboardWrapper = async () => {
         redirect('/login');
     }
 
+    console.log(user);
+
 
     const workspace = await db.workspace.findFirst({
         where: {

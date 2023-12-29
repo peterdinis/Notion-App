@@ -15,7 +15,11 @@ const AuthProvider = ({
     accessToken,
     children,
 }: AuthProviderProps): JSX.Element => {
-    const supabase = createClientComponentClient();
+    const supabase = createClientComponentClient({
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL as unknown as string,
+        supabaseKey: process.env
+            .NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string,
+    });
     const router = useRouter();
 
     useEffect(() => {

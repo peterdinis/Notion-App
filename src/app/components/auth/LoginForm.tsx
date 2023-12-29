@@ -18,8 +18,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader } from 'lucide-react';
-import { loginUser } from '@/actions/authActions';
 import { useToast } from '@/components/ui/use-toast';
+import { supabaseClient } from '@/supabase/supabaseSetup';
 
 const LoginForm: FC = () => {
     const router = useRouter();
@@ -41,7 +41,13 @@ const LoginForm: FC = () => {
         formData,
     ) => {
         try {
-            loginUser(formData.email, formData.password);
+            const { error } = await supabaseClient.auth.signInWithPassword({
+                email: formData.email,
+                password: formData.password,
+            });
+            if (error) {
+                console.log(error);
+            }
 
             toast({
                 variant: 'default',

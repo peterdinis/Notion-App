@@ -1,9 +1,7 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 const SelectedWorkspace: FC = () => {
-    return (
-        <></>
-    )
-}
+    return <></>;
+};
 
 export default SelectedWorkspace;

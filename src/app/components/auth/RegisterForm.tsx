@@ -18,28 +18,19 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader } from 'lucide-react';
-import clsx from 'clsx';
-import { registerUser } from '@/actions/authActions';
 import { useToast } from '@/components/ui/use-toast';
+import { supabaseClient } from '@/supabase/supabaseSetup';
 
 const RegisterForm: FC = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [submitError, setSubmitError] = useState('');
-    const [confirmation, setConfirmation] = useState(false);
     const { toast } = useToast();
+
     const constExchangeError = useMemo(() => {
         if (!searchParams) return '';
         return searchParams.get('error_description');
     }, [searchParams]);
-
-    const confirmSpecialStyles = useMemo(() => {
-        clsx('bg-primary', {
-            'bg-red-500/10': constExchangeError,
-            'border-red-500/50': constExchangeError,
-            'text-red-700': constExchangeError,
-        });
-    }, []);
 
     const form = useForm<z.infer<typeof FormSchema>>({
         mode: 'onChange',
@@ -56,7 +47,16 @@ const RegisterForm: FC = () => {
         formData,
     ) => {
         try {
-            registerUser(formData.email, formData.password);
+            const { error } = await supabaseClient.auth.signUp({
+                email: formData.email,
+                password: formData.password,
+            });
+
+            if (error) {
+                console.log(error);
+            }
+            // TODO: Confirm email redirection
+            // TODO1: Create new user in user table
             toast({
                 variant: 'default',
                 duration: 2000,

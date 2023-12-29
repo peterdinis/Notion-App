@@ -89,6 +89,7 @@ export const getFileDetail = async (fileId: string) => {
 
 export const getPrivateWorkspaces = async(userId: string) =>{
     if (!userId) return [];
-    const privateWorkspaces = await db.workspace.findMany({});
+    const privateWorkspaces = await db.workspace.findMany({
+    });
     return privateWorkspaces;
 }

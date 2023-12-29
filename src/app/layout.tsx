@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import AuthProvider from '@/supabase/Provider';
+import AuthProvider from '@/supabase/providers/AuthProvider';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { ThemeProvider } from './components/shared/theme-provider';

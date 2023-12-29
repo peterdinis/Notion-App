@@ -416,3 +416,6 @@ export interface Database {
 }
 
 export type Workspace = Prisma.WorkspaceGetPayload<{}>;
+export type User = Prisma.UserGetPayload<{}>;
+export type Folder = Prisma.FolderGetPayload<{}>;
+export type File = Prisma.FilesGetPayload<{}>;

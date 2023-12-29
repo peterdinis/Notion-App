@@ -56,6 +56,7 @@ const RegisterForm: FC = () => {
                 console.log(error);
             }
             // TODO: Confirm email redirection
+            // TODO1: Create new user in user table
             toast({
                 variant: 'default',
                 duration: 2000,

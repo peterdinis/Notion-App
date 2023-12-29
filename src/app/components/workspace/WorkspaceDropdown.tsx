@@ -1,13 +1,13 @@
-"use client"
+'use client';
 
-import { FC, useState } from "react";
+import { FC, useState } from 'react';
 
 interface WorkspaceDropdownProps {
-    privateWorkspaces:any[] | [];
-    sharedWorkspaces:any[] | [];
-    collaboratingWorkspaces:any[] | [];
-    defaultValue:any | undefined;
-  }
+    privateWorkspaces: any[] | [];
+    sharedWorkspaces: any[] | [];
+    collaboratingWorkspaces: any[] | [];
+    defaultValue: any | undefined;
+}
 
 const WorkspaceDropdown: FC<WorkspaceDropdownProps> = ({
     privateWorkspaces,
@@ -17,12 +17,8 @@ const WorkspaceDropdown: FC<WorkspaceDropdownProps> = ({
 }) => {
     const [selectedOption, setSelectedOption] = useState(defaultValue);
     const [isOpen, setIsOpen] = useState(false);
-    
-    return (
-        <>
-        
-        </>
-    )
-}
+
+    return <></>;
+};
 
 export default WorkspaceDropdown;

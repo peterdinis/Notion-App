@@ -3,13 +3,17 @@ import { FC } from 'react';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { getFolders } from '@/supabase/queries/queries';
+import WorkspaceDropdown from '../../workspace/WorkspaceDropdown';
 
 interface ISidebarProps {
     params: any;
     className?: string;
 }
 
-const Sidebar: FC<ISidebarProps> = async ({ className, params }: ISidebarProps) => {
+const Sidebar: FC<ISidebarProps> = async ({
+    className,
+    params,
+}: ISidebarProps) => {
     const supabase = createServerComponentClient(
         { cookies },
         {
@@ -26,7 +30,7 @@ const Sidebar: FC<ISidebarProps> = async ({ className, params }: ISidebarProps) 
 
     if (!user) return;
 
-    const {data, error} = await getFolders(params.workspaceId); // string vs int bug must be fixed
+    const { data, error } = await getFolders(params.workspaceId); // string vs int bug must be fixed
 
     console.log(data, error);
 
@@ -37,7 +41,14 @@ const Sidebar: FC<ISidebarProps> = async ({ className, params }: ISidebarProps) 
                 className,
             )}
         >
-            <div></div>
+            <div>
+                <WorkspaceDropdown
+                    privateWorkspaces={[]}
+                    sharedWorkspaces={[]}
+                    collaboratingWorkspaces={[]}
+                    defaultValue={undefined}
+                />
+            </div>
         </aside>
     );
 };

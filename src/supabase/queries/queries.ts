@@ -20,8 +20,8 @@ export const getFolders = async (workspaceId: string) => {
             },
         });
 
-        if(!results) {
-            throw new Error("Folders not found");
+        if (!results) {
+            throw new Error('Folders not found');
         }
 
         return { data: results, error: null };
@@ -41,12 +41,12 @@ export const getWorkspaceDetail = async (workspaceId: string) => {
     try {
         const workspaceDetail = await db.workspace.findFirst({
             where: {
-                id: workspaceId as unknown as number
-            }
-        })
+                id: workspaceId as unknown as number,
+            },
+        });
 
-        if(!workspaceDetail) {
-            throw new Error("Workspace does not exists");
+        if (!workspaceDetail) {
+            throw new Error('Workspace does not exists');
         }
 
         return workspaceDetail;
@@ -69,16 +69,15 @@ export const getFileDetail = async (fileId: string) => {
     try {
         const fileDetail = await db.files.findFirst({
             where: {
-                id: fileId as unknown as number
-            }
-        })
+                id: fileId as unknown as number,
+            },
+        });
 
-        if(!fileDetail) {
-            throw new Error("Workspace does not exists");
+        if (!fileDetail) {
+            throw new Error('Workspace does not exists');
         }
 
-        return fileDetail
-
+        return fileDetail;
     } catch (err) {
         return {
             data: null,
@@ -87,9 +86,8 @@ export const getFileDetail = async (fileId: string) => {
     }
 };
 
-export const getPrivateWorkspaces = async(userId: string) =>{
+export const getPrivateWorkspaces = async (userId: string) => {
     if (!userId) return [];
-    const privateWorkspaces = await db.workspace.findMany({
-    });
+    const privateWorkspaces = await db.workspace.findMany({});
     return privateWorkspaces;
-}
+};

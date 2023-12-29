@@ -1,7 +1,7 @@
 import React from 'react';
 import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
-import { supabaseServerClient } from '@/lib/supabaseSetup';
+import { supabaseServerClient } from '@/supabase/supabaseSetup';
 import DashboardSetup from './DashboardSetup';
 
 const DashboardWrapper = async () => {

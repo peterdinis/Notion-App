@@ -16,7 +16,7 @@ const WorkspaceDetailComponent: FC = async ()=> {
     return (
         <>
             <h3>{user?.email}</h3>
-            {/* <LogoutBtn /> */}
+            <LogoutBtn />
         </>
     )
 }

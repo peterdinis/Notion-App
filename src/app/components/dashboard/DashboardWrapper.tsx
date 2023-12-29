@@ -3,10 +3,9 @@ import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import DashboardSetup from './DashboardSetup';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import {cookies} from "next/headers";
+import { cookies } from 'next/headers';
 
 const DashboardWrapper = async () => {
-
     const supabase = createServerComponentClient({ cookies });
 
     const {
@@ -18,7 +17,6 @@ const DashboardWrapper = async () => {
     }
 
     console.log(user);
-
 
     const workspace = await db.workspace.findFirst({
         where: {

@@ -20,11 +20,15 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const supabase = createServerComponentClient({ cookies }, {
-        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL as unknown as string,
-        supabaseKey: process.env
-            .NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string,
-    });
+    const supabase = createServerComponentClient(
+        { cookies },
+        {
+            supabaseUrl: process.env
+                .NEXT_PUBLIC_SUPABASE_URL as unknown as string,
+            supabaseKey: process.env
+                .NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string,
+        },
+    );
 
     const {
         data: { session },

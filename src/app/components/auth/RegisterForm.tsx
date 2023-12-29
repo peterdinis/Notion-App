@@ -47,12 +47,12 @@ const RegisterForm: FC = () => {
         formData,
     ) => {
         try {
-            const {error} = await supabaseClient.auth.signUp({
+            const { error } = await supabaseClient.auth.signUp({
                 email: formData.email,
                 password: formData.password,
             });
 
-            if(error) {
+            if (error) {
                 console.log(error);
             }
             // TODO: Confirm email redirection

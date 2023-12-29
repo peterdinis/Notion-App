@@ -23,7 +23,7 @@ const DashboardWrapper = async () => {
 
     const workspace = await db.workspace.findFirst({
         where: {
-            userId: user?.id as unknown as number
+            userId: user?.id
         },
     });
 

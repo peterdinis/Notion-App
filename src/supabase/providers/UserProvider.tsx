@@ -28,7 +28,7 @@ export const SupabaseUserProvider: React.FC<SupabaseUserProviderProps> = ({
     const { toast } = useToast();
 
     const supabase = createClientComponentClient();
-    
+
     useEffect(() => {
         const getUser = async () => {
             const {

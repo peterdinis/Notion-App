@@ -8,6 +8,7 @@ import { ThemeProvider } from './components/shared/theme-provider';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { SupabaseUserProvider } from '@/supabase/providers/UserProvider';
+import { SocketProvider } from '@/providers/SocketProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -48,7 +49,7 @@ export default async function RootLayout({
                         accessToken={session?.access_token as unknown as string}
                     >
                         <SupabaseUserProvider>
-                            {children}
+                            <SocketProvider>{children}</SocketProvider>
                         </SupabaseUserProvider>
                     </AuthProvider>
                     <Toaster />

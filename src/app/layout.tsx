@@ -7,6 +7,7 @@ import { cookies } from 'next/headers';
 import { ThemeProvider } from './components/shared/theme-provider';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import { SupabaseUserProvider } from '@/supabase/providers/UserProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -46,7 +47,9 @@ export default async function RootLayout({
                     <AuthProvider
                         accessToken={session?.access_token as unknown as string}
                     >
-                        {children}
+                        <SupabaseUserProvider>
+                            {children}
+                        </SupabaseUserProvider>
                     </AuthProvider>
                     <Toaster />
                 </ThemeProvider>

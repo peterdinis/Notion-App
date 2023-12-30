@@ -20,7 +20,7 @@ model User {
 }
 
 model Workspace {
-  id        Int       @id @default(autoincrement())
+  id        String @default(uuid()) @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt()
   title     String
@@ -32,11 +32,11 @@ model Workspace {
   folders   Folder[]
   user      User      @relation(fields: [userId], references: [id])
   userId    String
-   collaborators Collaborator[]
+  collaborators Collaborator[]
 }
 
 model Folder {
-  id          Int       @id @default(autoincrement())
+  id          String @default(uuid()) @unique
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt()
   title       String
@@ -46,12 +46,12 @@ model Folder {
   logo        String?
   bannerUrl   String
   workspace   Workspace @relation(fields: [workspaceId], references: [id])
-  workspaceId Int
+  workspaceId String
   files       Files[] 
 }
 
 model Files {
-  id          Int       @id @default(autoincrement())
+  id          String @default(uuid()) @unique
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt()
   title       String
@@ -61,13 +61,13 @@ model Files {
   logo        String?
   bannerUrl   String
   folder      Folder    @relation(fields: [folderId], references: [id])
-  folderId    Int 
+  folderId    String
 }
 
 model Collaborator {
   id          String     @id @default(uuid())
   workspace   Workspace  @relation(fields: [workspaceId], references: [id])
-  workspaceId Int
+  workspaceId String
   createdAt   DateTime   @default(now()) @db.Timestamp(3)
   user        User       @relation(fields: [userId], references: [id])
   userId      String

@@ -20,7 +20,7 @@ const LogoutBtn: FC = () => {
     }
 
     return (
-        <Button variant='default' size='lg' onClick={handleSignOut}>
+        <Button asChild variant='default' size='lg' onClick={handleSignOut}>
             Sign Out
         </Button>
     );

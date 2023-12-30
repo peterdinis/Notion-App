@@ -1,8 +1,9 @@
 'use client';
-import { appFoldersType, useAppState } from '@/lib/providers/state-provider';
-import { File } from '@/lib/supabase/supabase.types';
+
+import { appFoldersType, useAppState } from '@/supabase/providers/StateProviders';
 import { FileIcon, FolderIcon } from 'lucide-react';
 import Link from 'next/link';
+import { File } from '@/types/StateTypes';
 import React, { useEffect, useState } from 'react';
 
 const TrashRestore = () => {
@@ -59,7 +60,7 @@ const TrashRestore = () => {
       {!!files.length && (
         <>
           <h3>Files</h3>
-          {files.map((file) => (
+          {files.map((file: any) => (
             <Link
               key={file.id}
               className=" hover:bg-muted rounded-md p-2 flex items-center justify-between"

@@ -5,31 +5,31 @@ import Link from 'next/link';
 import { FC, useEffect, useState } from 'react';
 
 interface SelectedWorkspaceProps {
-  workspace: Workspace;
-  onClick?: (option: Workspace) => void;
+    workspace: Workspace;
+    onClick?: (option: Workspace) => void;
 }
 
 const SelectedWorkspace: FC<SelectedWorkspaceProps> = ({
-  workspace,
-  onClick,
+    workspace,
+    onClick,
 }) => {
-  const supabase = createClientComponentClient();
-  const [workspaceLogo, setWorkspaceLogo] = useState('/cypresslogo.svg');
-  useEffect(() => {
-    if (workspace.logo) {
-      const path = supabase.storage
-        .from('workspace-logos')
-        .getPublicUrl(workspace.logo)?.data.publicUrl;
-      setWorkspaceLogo(path);
-    }
-  }, [workspace]);
-  return (
-    <Link
-      href={`/dashboard/${workspace.id}`}
-      onClick={() => {
-        if (onClick) onClick(workspace);
-      }}
-      className="flex 
+    const supabase = createClientComponentClient();
+    const [workspaceLogo, setWorkspaceLogo] = useState('/cypresslogo.svg');
+    useEffect(() => {
+        if (workspace.logo) {
+            const path = supabase.storage
+                .from('workspace-logos')
+                .getPublicUrl(workspace.logo)?.data.publicUrl;
+            setWorkspaceLogo(path);
+        }
+    }, [workspace]);
+    return (
+        <Link
+            href={`/dashboard/${workspace.id}`}
+            onClick={() => {
+                if (onClick) onClick(workspace);
+            }}
+            className='flex 
       rounded-md 
       hover:bg-muted 
       transition-all 
@@ -39,28 +39,28 @@ const SelectedWorkspace: FC<SelectedWorkspaceProps> = ({
       justify-center 
       cursor-pointer 
       items-center 
-      my-2"
-    >
-      <Image
-        src={workspaceLogo}
-        alt="workspace logo"
-        width={26}
-        height={26}
-        objectFit="cover"
-      />
-      <div className="flex flex-col">
-        <p
-          className="text-lg 
+      my-2'
+        >
+            <Image
+                src={workspaceLogo}
+                alt='workspace logo'
+                width={26}
+                height={26}
+                objectFit='cover'
+            />
+            <div className='flex flex-col'>
+                <p
+                    className='text-lg 
         w-[170px] 
         overflow-hidden 
         overflow-ellipsis 
-        whitespace-nowrap"
-        >
-          {workspace.title}
-        </p>
-      </div>
-    </Link>
-  );
+        whitespace-nowrap'
+                >
+                    {workspace.title}
+                </p>
+            </div>
+        </Link>
+    );
 };
 
 export default SelectedWorkspace;

@@ -1,15 +1,9 @@
 'use client';
-import { useAppState } from '@/lib/providers/state-provider';
+
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import React, { useMemo, useState } from 'react';
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '../ui/accordion';
 import clsx from 'clsx';
-import EmojiPicker from '../global/emoji-picker';
 import { createFile, updateFile, updateFolder } from '@/lib/supabase/queries';
 import { useToast } from '../ui/use-toast';
 import TooltipComponent from '../global/tooltip-component';
@@ -17,6 +11,9 @@ import { PlusIcon, Trash } from 'lucide-react';
 import { File } from '@/lib/supabase/supabase.types';
 import { v4 } from 'uuid';
 import { useSupabaseUser } from '@/lib/providers/supabase-user-provider';
+import { useAppState } from '@/supabase/providers/StateProviders';
+import { AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import EmojiPicker from '../EmojiComponent';
 
 interface DropdownProps {
   title: string;

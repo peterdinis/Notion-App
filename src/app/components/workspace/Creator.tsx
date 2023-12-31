@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Label, SelectGroup } from '@radix-ui/react-select';
 import { Lock, Plus, Share } from 'lucide-react';
 import { v4 } from 'uuid';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,7 @@ import { createWorkspace, addCollaborators } from '@/supabase/queries/queries';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import CollaboratorSearch from '../collaboators/CollboatorsSearch';
+import { Label } from '@/components/ui/label';
 
 const WorkspaceCreator = () => {
   const { user } = useSupabaseUser();
@@ -42,7 +43,7 @@ const WorkspaceCreator = () => {
     setIsLoading(true);
     const uuid = v4();
     if (user?.id) {
-      const newWorkspace: Workspace = {
+      const newWorkspace = {
         data: null as unknown as string,
         createdAt: new Date().toISOString() as unknown as Date,
         icon: '💼',
@@ -52,7 +53,7 @@ const WorkspaceCreator = () => {
         workspaceOwner: user.id,
         logo: null,
         bannerUrl: '',
-      };
+      } as any;
       if (permissions === 'private') {
         toast({ title: 'Success', description: 'Created the workspace' });
         await createWorkspace(newWorkspace);

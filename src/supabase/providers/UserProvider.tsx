@@ -1,7 +1,7 @@
 'use client';
 
 import { AuthUser } from '@supabase/supabase-js';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -18,10 +18,10 @@ export const useSupabaseUser = () => {
 };
 
 interface SupabaseUserProviderProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
-export const SupabaseUserProvider: React.FC<SupabaseUserProviderProps> = ({
+export const SupabaseUserProvider: FC<SupabaseUserProviderProps> = ({
     children,
 }) => {
     const [user, setUser] = useState<AuthUser | null>(null);

@@ -278,7 +278,7 @@ export const createFile = async (file: Prisma.FilesCreateInput) => {
 };
 
 export const updateFolder = async (
-    folder: Prisma.FolderCreateInput,
+    folder: any,
     folderId: string,
 ) => {
     try {
@@ -296,7 +296,7 @@ export const updateFolder = async (
 };
 
 export const updateFile = async (
-    file: Prisma.FilesCreateInput,
+    file: any,
     fileId: string,
 ) => {
     try {

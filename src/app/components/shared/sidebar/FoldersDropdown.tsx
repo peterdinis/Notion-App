@@ -1,33 +1,30 @@
 'use client';
-import { useAppState } from '@/lib/providers/state-provider';
-import { Folder } from '@/lib/supabase/supabase.types';
-import React, { useEffect, useState } from 'react';
-import TooltipComponent from '../global/tooltip-component';
+
+import { FC, useEffect, useState } from 'react';
 import { PlusIcon } from 'lucide-react';
-import { useSupabaseUser } from '@/lib/providers/supabase-user-provider';
 import { v4 } from 'uuid';
-import { createFolder } from '@/lib/supabase/queries';
-import { useToast } from '../ui/use-toast';
-import { Accordion } from '../ui/accordion';
 import Dropdown from './Dropdown';
-import useSupabaseRealtime from '@/lib/hooks/useSupabaseRealtime';
-import { useSubscriptionModal } from '@/lib/providers/subscription-modal-provider';
+import { useToast } from '@/components/ui/use-toast';
+import useSupabaseRealtime from '@/hooks/useSupabaseRealtime';
+import { useAppState } from '@/supabase/providers/StateProviders';
+import { useSupabaseUser } from '@/supabase/providers/UserProvider';
+import { createFolder } from '@/supabase/queries/queries';
+import { Accordion } from '@radix-ui/react-accordion';
+import TooltipComponent from '../TooltipComponent';
 
 interface FoldersDropdownListProps {
     workspaceFolders: Folder[];
     workspaceId: string;
 }
 
-const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
+const FoldersDropdownList: FC<FoldersDropdownListProps> = ({
     workspaceFolders,
     workspaceId,
 }) => {
     useSupabaseRealtime();
     const { state, dispatch, folderId } = useAppState();
-    const { open, setOpen } = useSubscriptionModal();
     const { toast } = useToast();
     const [folders, setFolders] = useState(workspaceFolders);
-    const { subscription } = useSupabaseUser();
 
     //effec set nitial satte server app state
     useEffect(() => {
@@ -53,19 +50,15 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
     //state
 
     useEffect(() => {
-        setFolders(
+        return setFolders(
             state.workspaces.find((workspace) => workspace.id === workspaceId)
-                ?.folders || [],
+                ?.folders || []
         );
     }, [state]);
 
     //add folder
     const addFolderHandler = async () => {
-        if (folders.length >= 3 && !subscription) {
-            setOpen(true);
-            return;
-        }
-        const newFolder: Folder = {
+        const newFolder= {
             data: null,
             id: v4(),
             createdAt: new Date().toISOString(),
@@ -74,12 +67,12 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
             inTrash: null,
             workspaceId,
             bannerUrl: '',
-        };
+        } as any;
         dispatch({
             type: 'ADD_FOLDER',
-            payload: { workspaceId, folder: { ...newFolder, files: [] } },
+            payload: { workspaceId, folder: { ...newFolder, files: [] } as any },
         });
-        const { data, error } = await createFolder(newFolder);
+        const {, error } = await createFolder(newFolder);
         if (error) {
             toast({
                 title: 'Error',
@@ -142,9 +135,7 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
                             key={folder.id}
                             title={folder.title}
                             listType='folder'
-                            id={folder.id}
-                            iconId={folder.iconId}
-                        />
+                            id={folder.id as any} iconId={''}                        />
                     ))}
             </Accordion>
         </>

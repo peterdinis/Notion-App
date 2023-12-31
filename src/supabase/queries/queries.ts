@@ -1,13 +1,12 @@
 'use server';
 
 import { db } from '@/lib/db';
+import { Prisma } from '@prisma/client';
 
-export const createWorkspace = async (workspace: any) => {
+export const createWorkspace = async (workspace: Prisma.WorkspaceCreateInput) => {
     try {
         return await db.workspace.create({
-            data: {
-                workspace,
-            } as any,
+            data: workspace, 
         });
     } catch (error) {
         throw new Error(`Error creating workspace: ${error}`);

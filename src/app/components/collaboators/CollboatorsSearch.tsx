@@ -13,7 +13,7 @@ import { useSupabaseUser } from '@/supabase/providers/UserProvider';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { Sheet, Search } from 'lucide-react';
-import { ReactNode, FC, useState, useRef, useEffect } from 'react';
+import { ReactNode, FC, useState, useRef, useEffect, ChangeEvent } from 'react';
 
 interface CollaboratorSearchProps {
     existingCollaborators: User[] | [];
@@ -36,14 +36,8 @@ const CollaboratorSearch: FC<CollaboratorSearchProps> = ({
         };
     }, []);
 
-    const getUserData = () => {};
-
-    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (timerRef) clearTimeout(timerRef.current);
-        // timerRef.current = setTimeout(async () => {
-        //   const res = await getUsersFromSearch(e.target.value);
-        //   setSearchResults(res);
-        // }, 450);
     };
 
     const addCollaborator = (user: User) => {

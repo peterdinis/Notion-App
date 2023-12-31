@@ -63,20 +63,22 @@ const TrashRestore = () => {
             {!!files.length && (
                 <>
                     <h3>Files</h3>
-                    {files && files.map((file) => (
-                        <Link
-                            key={file!.id}
-                            className=' hover:bg-muted rounded-md p-2 flex items-center justify-between'
-                            href={`/dashboard/${file!.workspaceId}/${file!.folderId}/${file!.id}`}
-                        >
-                            <article>
-                                <aside className='flex items-center gap-2'>
-                                    <FileIcon />
-                                    {file!.title}
-                                </aside>
-                            </article>
-                        </Link>
-                    ))}
+
+                    {files &&
+                        files.map((file) => (
+                            <Link
+                                key={file.id}
+                                className=' hover:bg-muted rounded-md p-2 flex items-center justify-between'
+                                href={`/dashboard/${file.workspaceId}/${file.folderId}/${file.id}`}
+                            >
+                                <article>
+                                    <aside className='flex items-center gap-2'>
+                                        <FileIcon />
+                                        {file.title}
+                                    </aside>
+                                </article>
+                            </Link>
+                        ))}
                 </>
             )}
             {!files.length && !folders.length && (

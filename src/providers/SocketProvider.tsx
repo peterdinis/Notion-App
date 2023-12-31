@@ -10,7 +10,6 @@ import {
 import { Socket } from 'socket.io';
 import { io as ClientIO } from 'socket.io-client';
 
-
 type SocketContextType = {
     socket: Socket | null;
     isConnected: boolean;

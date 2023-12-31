@@ -17,15 +17,30 @@ import { useSupabaseUser } from '@/supabase/providers/UserProvider';
 import { useSocket } from '@/providers/SocketProvider';
 import { Workspace } from '@/types/StateTypes';
 import { Button } from '@/components/ui/button';
-import { updateFile, updateFolder, deleteFile, deleteFolder, updateWorkspace, getFileDetails, getFolderDetails, getWorkspaceDetails, findUser } from '@/supabase/queries/queries';
+import {
+    updateFile,
+    updateFolder,
+    deleteFile,
+    deleteFolder,
+    updateWorkspace,
+    getFileDetails,
+    getFolderDetails,
+    getWorkspaceDetails,
+    findUser,
+} from '@/supabase/queries/queries';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
-import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@radix-ui/react-tooltip';
+import {
+    TooltipProvider,
+    Tooltip,
+    TooltipTrigger,
+    TooltipContent,
+} from '@radix-ui/react-tooltip';
 import EmojiPicker from 'emoji-picker-react';
 import { Badge, XCircleIcon } from 'lucide-react';
 import BannerUpload from '../banner/Upload';
 
 interface QuillEditorProps {
-    dirDetails: File | Folder | Workspace;
+    dirDetails: any;
     fileId: string;
     dirType: 'workspace' | 'folder' | 'file';
 }
@@ -49,17 +64,13 @@ var TOOLBAR_OPTIONS = [
     ['clean'], // remove formatting button
 ];
 
-const QuillEditor: FC<QuillEditorProps> = ({
-    dirDetails,
-    dirType,
-    fileId,
-}) => {
+const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
     const supabase = createClientComponentClient();
     const { state, workspaceId, folderId, dispatch } = useAppState();
     const saveTimerRef = useRef<ReturnType<typeof setTimeout>>();
     const { user } = useSupabaseUser();
     const router = useRouter();
-    const { socket, isConnected } = useSocket();
+    const { socket } = useSocket();
     const pathname = usePathname();
     const [quill, setQuill] = useState(null);
     const [collaborators, setCollaborators] = useState<
@@ -99,7 +110,7 @@ const QuillEditor: FC<QuillEditorProps> = ({
             data: dirDetails.data,
             inTrash: dirDetails.inTrash,
             bannerUrl: dirDetails.bannerUrl,
-        } as Workspace | Folder | File;
+        } as any;
     }, [state, workspaceId, folderId]);
 
     const breadCrumbs = useMemo(() => {

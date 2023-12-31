@@ -162,14 +162,12 @@ export interface Database {
                     currency: string | null;
                     description: string | null;
                     id: string;
-                    interval:
-                        | Database['public']
-                        | null;
+                    interval: Database['public'] | null;
                     interval_count: number | null;
                     metadata: Json | null;
                     product_id: string | null;
                     trial_period_days: number | null;
-                    type: Database['public']| null;
+                    type: Database['public'] | null;
                     unit_amount: number | null;
                 };
                 Insert: {
@@ -177,9 +175,7 @@ export interface Database {
                     currency?: string | null;
                     description?: string | null;
                     id: string;
-                    interval?:
-                        | Database['public']
-                        | null;
+                    interval?: Database['public'] | null;
                     interval_count?: number | null;
                     metadata?: Json | null;
                     product_id?: string | null;
@@ -192,9 +188,7 @@ export interface Database {
                     currency?: string | null;
                     description?: string | null;
                     id?: string;
-                    interval?:
-                        | Database['public']
-                        | null;
+                    interval?: Database['public'] | null;
                     interval_count?: number | null;
                     metadata?: Json | null;
                     product_id?: string | null;

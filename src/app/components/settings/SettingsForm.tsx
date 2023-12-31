@@ -11,6 +11,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useAppState } from '@/supabase/providers/StateProviders';
 import { useSupabaseUser } from '@/supabase/providers/UserProvider';
 import {
+    addCollaborators,
     deleteWorkspace,
     getCollaborators,
     removeCollaborators,
@@ -49,6 +50,7 @@ import { useRouter } from 'next/navigation';
 import { FC, useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import LogoutBtn from '../shared/LogoutBtn';
+import CollaboratorSearch from '../collaboators/CollboatorsSearch';
 
 const SettingsForm: FC = () => {
     const { toast } = useToast();
@@ -86,9 +88,6 @@ const SettingsForm: FC = () => {
             payload: { workspace: { title: e.target.value }, workspaceId },
         });
         if (titleTimerRef.current) clearTimeout(titleTimerRef.current);
-        titleTimerRef.current = setTimeout(async () => {
-            // await updateWorkspace({ title: e.target.value }, workspaceId);
-        }, 500);
     };
 
     const onChangeWorkspaceLogo = async (
@@ -231,7 +230,7 @@ const SettingsForm: FC = () => {
                         <CollaboratorSearch
                             existingCollaborators={collaborators}
                             getCollaborator={(user) => {
-                                addCollaborator(user);
+                                addCollaborators(user);
                             }}
                         >
                             <Button type='button' className='text-sm mt-4'>
@@ -369,11 +368,10 @@ const SettingsForm: FC = () => {
                         />
                     </div>
                 </div>
-                <LogoutBtn>
-                    <div className='flex items-center'>
-                        <LogOut />
-                    </div>
-                </LogoutBtn>
+                <LogoutBtn />
+                <div className='flex items-center'>
+                    <LogOut />
+                </div>
                 <p className='flex items-center gap-2 mt-6'>
                     <CreditCard size={20} /> Billing & Plan
                 </p>

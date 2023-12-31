@@ -3,11 +3,15 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAppState } from '@/supabase/providers/StateProviders';
-import { updateFile, updateFolder, updateWorkspace } from '@/supabase/queries/queries';
+import {
+    updateFile,
+    updateFolder,
+    updateWorkspace,
+} from '@/supabase/queries/queries';
 import { Label } from '@radix-ui/react-label';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Loader } from 'lucide-react';
-import {FC} from 'react';
+import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 

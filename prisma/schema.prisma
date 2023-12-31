@@ -27,6 +27,7 @@ model Workspace {
   icon          String
   data          String         @default("")
   inTrash       String         @default("")
+  access        String
   logo          String?
   bannerUrl     String
   folders       Folder[]

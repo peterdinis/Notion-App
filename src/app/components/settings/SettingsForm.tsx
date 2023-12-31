@@ -65,7 +65,6 @@ const SettingsForm: FC = () => {
     const titleTimerRef = useRef<ReturnType<typeof setTimeout>>();
     const [uploadingProfilePic, setUploadingProfilePic] = useState(false);
     const [uploadingLogo, setUploadingLogo] = useState(false);
-    const [loadingPortal, setLoadingPortal] = useState(false);
 
     //remove collaborators
     const removeCollaborator = async (user: User) => {

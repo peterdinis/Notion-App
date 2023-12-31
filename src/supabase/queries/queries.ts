@@ -1,13 +1,12 @@
 'use server';
 
 import { db } from '@/lib/db';
+import { Prisma } from '@prisma/client';
 
-export const createWorkspace = async (workspace: any) => {
+export const createWorkspace = async (workspace: Prisma.WorkspaceCreateInput) => {
     try {
         return await db.workspace.create({
-            data: {
-                workspace,
-            } as any,
+            data: workspace, 
         });
     } catch (error) {
         throw new Error(`Error creating workspace: ${error}`);
@@ -118,7 +117,7 @@ export const getPrivateWorkspaces = async (userId: string) => {
                     equals: userId,
                 },
                 access: 'private',
-            } as any,
+            }
         });
     } catch (error) {
         throw new Error(`Error fetching private workspaces: ${error}`);
@@ -137,7 +136,7 @@ export const getCollaboratingWorkspaces = async (userId: string) => {
                         access: 'collaborate',
                     },
                 },
-            } as any,
+            }
         });
 
         return user?.workspaces || [];
@@ -178,7 +177,7 @@ export const getFiles = async (folderId: string) => {
     }
 };
 
-export const addCollaborators = async (users: any[], workspaceId: string) => {
+export const addCollaborators = async (users: User[], workspaceId: string) => {
     try {
         const workspace = await db.workspace.findUnique({
             where: {
@@ -208,7 +207,7 @@ export const addCollaborators = async (users: any[], workspaceId: string) => {
 };
 
 export const removeCollaborators = async (
-    users: any[],
+    users: User[],
     workspaceId: string,
 ) => {
     try {
@@ -241,7 +240,7 @@ export const findUser = async (userId: string) => {
     }
 };
 
-export const createFolder = async (folder: any) => {
+export const createFolder = async (folder: Prisma.FolderCreateInput) => {
     try {
         await db.folder.create({
             data: folder,
@@ -253,7 +252,7 @@ export const createFolder = async (folder: any) => {
     }
 };
 
-export const createFile = async (file: any) => {
+export const createFile = async (file: Prisma.FilesCreateInput) => {
     try {
         await db.files.create({
             data: file,
@@ -265,7 +264,7 @@ export const createFile = async (file: any) => {
     }
 };
 
-export const updateFolder = async (folder: any, folderId: string) => {
+export const updateFolder = async (folder: Prisma.FolderCreateInput, folderId: string) => {
     try {
         await db.folder.update({
             where: {
@@ -280,7 +279,7 @@ export const updateFolder = async (folder: any, folderId: string) => {
     }
 };
 
-export const updateFile = async (file: any, fileId: string) => {
+export const updateFile = async (file: Prisma.FilesCreateInput, fileId: string) => {
     try {
         await db.files.update({
             where: {
@@ -295,7 +294,7 @@ export const updateFile = async (file: any, fileId: string) => {
     }
 };
 
-export const updateWorkspace = async (workspace: any, workspaceId: string) => {
+export const updateWorkspace = async (workspace: Prisma.WorkspaceCreateInput, workspaceId: string) => {
     try {
         await db.workspace.update({
             where: {

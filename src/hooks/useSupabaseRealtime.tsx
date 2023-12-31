@@ -42,7 +42,7 @@ const useSupabaseRealtime = () => {
                                 data: payload.new.data,
                                 inTrash: payload.new.in_trash,
                                 bannerUrl: payload.new.banner_url,
-                            } as any;
+                            }
                             dispatch({
                                 type: 'ADD_FILE',
                                 payload: {
@@ -50,7 +50,7 @@ const useSupabaseRealtime = () => {
                                     folderId,
                                     workspaceId,
                                 },
-                            }) as any;
+                            })
                         }
                     } else if (payload.eventType === 'DELETE') {
                         let workspaceId = '';

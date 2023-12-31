@@ -1,16 +1,16 @@
 'use client';
 
-import { useAppState } from '@/supabase/providers/StateProviders';
+import { appWorkspacesType, useAppState } from '@/supabase/providers/StateProviders';
 import { FC, useState, useEffect } from 'react';
 import SelectedWorkspace from './SelectedWorkspace';
 import WorkspaceCreator from './Creator';
 import CustomDialogTrigger from '../shared/CustomDialog';
 
 interface WorkspaceDropdownProps {
-    privateWorkspaces: any[] | [];
-    sharedWorkspaces: any[] | [];
-    collaboratingWorkspaces: any[] | [];
-    defaultValue: any | undefined;
+    privateWorkspaces: Workspace[] | [];
+    sharedWorkspaces: Workspace[] | [];
+    collaboratingWorkspaces: any,
+    defaultValue: any;
 }
 
 const WorkspaceDropdown: FC<WorkspaceDropdownProps> = ({
@@ -120,7 +120,7 @@ const WorkspaceDropdown: FC<WorkspaceDropdownProps> = ({
                                         Collaborating
                                     </p>
                                     <hr />
-                                    {collaboratingWorkspaces.map((option) => (
+                                    {collaboratingWorkspaces.map((option: Workspace) => (
                                         <SelectedWorkspace
                                             key={option.id}
                                             workspace={option}

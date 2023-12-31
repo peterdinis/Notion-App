@@ -1,6 +1,7 @@
 'use client';
 
 import React, {
+    FC,
     useCallback,
     useEffect,
     useMemo,
@@ -15,6 +16,13 @@ import { useAppState } from '@/supabase/providers/StateProviders';
 import { useSupabaseUser } from '@/supabase/providers/UserProvider';
 import { useSocket } from '@/providers/SocketProvider';
 import { Workspace } from '@/types/StateTypes';
+import { Button } from '@/components/ui/button';
+import { updateFile, updateFolder, deleteFile, deleteFolder, updateWorkspace, getFileDetails, getFolderDetails, getWorkspaceDetails, findUser } from '@/supabase/queries/queries';
+import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@radix-ui/react-tooltip';
+import EmojiPicker from 'emoji-picker-react';
+import { Badge, XCircleIcon } from 'lucide-react';
+import BannerUpload from '../banner/Upload';
 
 interface QuillEditorProps {
     dirDetails: File | Folder | Workspace;
@@ -41,7 +49,7 @@ var TOOLBAR_OPTIONS = [
     ['clean'], // remove formatting button
 ];
 
-const QuillEditor: React.FC<QuillEditorProps> = ({
+const QuillEditor: FC<QuillEditorProps> = ({
     dirDetails,
     dirType,
     fileId,
@@ -53,13 +61,13 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     const router = useRouter();
     const { socket, isConnected } = useSocket();
     const pathname = usePathname();
-    const [quill, setQuill] = useState<any>(null);
+    const [quill, setQuill] = useState(null);
     const [collaborators, setCollaborators] = useState<
         { id: string; email: string; avatarUrl: string }[]
     >([]);
     const [deletingBanner, setDeletingBanner] = useState(false);
     const [saving, setSaving] = useState(false);
-    const [localCursors, setLocalCursors] = useState<any>([]);
+    const [localCursors, setLocalCursors] = useState([]);
 
     const details = useMemo(() => {
         let selectedDir;
@@ -414,43 +422,6 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             const contents = quill.getContents();
             const quillLength = quill.getLength();
             saveTimerRef.current = setTimeout(async () => {
-                // if (contents && quillLength !== 1 && fileId) {
-                //   if (dirType == 'workspace') {
-                //     dispatch({
-                //       type: 'UPDATE_WORKSPACE',
-                //       payload: {
-                //         workspace: { data: JSON.stringify(contents) },
-                //         workspaceId: fileId,
-                //       },
-                //     });
-                //     await updateWorkspace({ data: JSON.stringify(contents) }, fileId);
-                //   }
-                //   if (dirType == 'folder') {
-                //     if (!workspaceId) return;
-                //     dispatch({
-                //       type: 'UPDATE_FOLDER',
-                //       payload: {
-                //         folder: { data: JSON.stringify(contents) },
-                //         workspaceId,
-                //         folderId: fileId,
-                //       },
-                //     });
-                //     await updateFolder({ data: JSON.stringify(contents) }, fileId);
-                //   }
-                //   if (dirType == 'file') {
-                //     if (!workspaceId || !folderId) return;
-                //     dispatch({
-                //       type: 'UPDATE_FILE',
-                //       payload: {
-                //         file: { data: JSON.stringify(contents) },
-                //         workspaceId,
-                //         folderId: folderId,
-                //         fileId,
-                //       },
-                //     });
-                //     await updateFile({ data: JSON.stringify(contents) }, fileId);
-                //   }
-                // }
                 setSaving(false);
             }, 850);
             socket.emit('send-changes', delta, fileId);

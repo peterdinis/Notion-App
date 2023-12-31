@@ -8,7 +8,7 @@ interface User {
 }
 
 interface Workspace {
-    id: number;
+    id: string;
     createdAt: Date;
     updatedAt: Date;
     title: string;

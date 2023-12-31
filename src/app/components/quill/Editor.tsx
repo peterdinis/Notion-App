@@ -15,6 +15,13 @@ import { useAppState } from '@/supabase/providers/StateProviders';
 import { useSupabaseUser } from '@/supabase/providers/UserProvider';
 import { useSocket } from '@/providers/SocketProvider';
 import { Workspace } from '@/types/StateTypes';
+import { Button } from '@/components/ui/button';
+import { updateFile, updateFolder, deleteFile, deleteFolder, updateWorkspace, getFileDetails, getFolderDetails, getWorkspaceDetails, findUser } from '@/supabase/queries/queries';
+import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@radix-ui/react-tooltip';
+import EmojiPicker from 'emoji-picker-react';
+import { Badge, XCircleIcon } from 'lucide-react';
+import BannerUpload from '../banner/Upload';
 
 interface QuillEditorProps {
     dirDetails: File | Folder | Workspace;

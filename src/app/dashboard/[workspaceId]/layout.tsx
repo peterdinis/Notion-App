@@ -2,9 +2,13 @@ import AppHeader from '@/app/components/shared/AppHeader';
 import Sidebar from '@/app/components/shared/sidebar/Sidebar';
 import { FC, ReactNode } from 'react';
 
+interface IParamsProps {
+    workspaceId: string;
+}
+
 interface LayoutProps {
     children: ReactNode;
-    params: any;
+    params: IParamsProps;
 }
 
 const Layout: FC<LayoutProps> = async ({ children, params }) => {

@@ -163,13 +163,13 @@ export interface Database {
                     description: string | null;
                     id: string;
                     interval:
-                        | Database['public']['Enums']['pricing_plan_interval']
+                        | Database['public']
                         | null;
                     interval_count: number | null;
                     metadata: Json | null;
                     product_id: string | null;
                     trial_period_days: number | null;
-                    type: Database['public']['Enums']['pricing_type'] | null;
+                    type: Database['public']| null;
                     unit_amount: number | null;
                 };
                 Insert: {
@@ -178,13 +178,13 @@ export interface Database {
                     description?: string | null;
                     id: string;
                     interval?:
-                        | Database['public']['Enums']['pricing_plan_interval']
+                        | Database['public']
                         | null;
                     interval_count?: number | null;
                     metadata?: Json | null;
                     product_id?: string | null;
                     trial_period_days?: number | null;
-                    type?: Database['public']['Enums']['pricing_type'] | null;
+                    type?: Database['public'] | null;
                     unit_amount?: number | null;
                 };
                 Update: {
@@ -193,13 +193,13 @@ export interface Database {
                     description?: string | null;
                     id?: string;
                     interval?:
-                        | Database['public']['Enums']['pricing_plan_interval']
+                        | Database['public']
                         | null;
                     interval_count?: number | null;
                     metadata?: Json | null;
                     product_id?: string | null;
                     trial_period_days?: number | null;
-                    type?: Database['public']['Enums']['pricing_type'] | null;
+                    type?: Database['public'] | null;
                     unit_amount?: number | null;
                 };
                 Relationships: [
@@ -237,85 +237,6 @@ export interface Database {
                     name?: string | null;
                 };
                 Relationships: [];
-            };
-            subscriptions: {
-                Row: {
-                    cancel_at: string | null;
-                    cancel_at_period_end: boolean | null;
-                    canceled_at: string | null;
-                    created: string;
-                    current_period_end: string;
-                    current_period_start: string;
-                    ended_at: string | null;
-                    id: string;
-                    metadata: Json | null;
-                    price_id: string | null;
-                    quantity: number | null;
-                    status:
-                        | Database['public']['Enums']['subscription_status']
-                        | null;
-                    trial_end: string | null;
-                    trial_start: string | null;
-                    user_id: string;
-                };
-                Insert: {
-                    cancel_at?: string | null;
-                    cancel_at_period_end?: boolean | null;
-                    canceled_at?: string | null;
-                    created?: string;
-                    current_period_end?: string;
-                    current_period_start?: string;
-                    ended_at?: string | null;
-                    id: string;
-                    metadata?: Json | null;
-                    price_id?: string | null;
-                    quantity?: number | null;
-                    status?:
-                        | Database['public']['Enums']['subscription_status']
-                        | null;
-                    trial_end?: string | null;
-                    trial_start?: string | null;
-                    user_id: string;
-                };
-                Update: {
-                    cancel_at?: string | null;
-                    cancel_at_period_end?: boolean | null;
-                    canceled_at?: string | null;
-                    created?: string;
-                    current_period_end?: string;
-                    current_period_start?: string;
-                    ended_at?: string | null;
-                    id?: string;
-                    metadata?: Json | null;
-                    price_id?: string | null;
-                    quantity?: number | null;
-                    status?:
-                        | Database['public']['Enums']['subscription_status']
-                        | null;
-                    trial_end?: string | null;
-                    trial_start?: string | null;
-                    user_id?: string;
-                };
-                Relationships: [
-                    {
-                        foreignKeyName: 'subscriptions_price_id_fkey';
-                        columns: ['price_id'];
-                        referencedRelation: 'prices';
-                        referencedColumns: ['id'];
-                    },
-                    {
-                        foreignKeyName: 'subscriptions_price_id_prices_id_fk';
-                        columns: ['price_id'];
-                        referencedRelation: 'prices';
-                        referencedColumns: ['id'];
-                    },
-                    {
-                        foreignKeyName: 'subscriptions_user_id_fkey';
-                        columns: ['user_id'];
-                        referencedRelation: 'users';
-                        referencedColumns: ['id'];
-                    },
-                ];
             };
             users: {
                 Row: {
@@ -396,18 +317,6 @@ export interface Database {
         };
         Functions: {
             [_ in never]: never;
-        };
-        Enums: {
-            pricing_plan_interval: 'day' | 'week' | 'month' | 'year';
-            pricing_type: 'one_time' | 'recurring';
-            subscription_status:
-                | 'trialing'
-                | 'active'
-                | 'canceled'
-                | 'incomplete'
-                | 'incomplete_expired'
-                | 'past_due'
-                | 'unpaid';
         };
         CompositeTypes: {
             [_ in never]: never;

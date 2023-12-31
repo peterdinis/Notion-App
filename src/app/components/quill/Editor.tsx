@@ -141,7 +141,7 @@ const QuillEditor: FC<QuillEditorProps> = ({
     }, [state, pathname, workspaceId]);
 
     //
-    const wrapperRef = useCallback(async (wrapper: any) => {
+    const wrapperRef = useCallback(async (wrapper: { innerHTML: string; append: (arg0: HTMLDivElement) => void; } | null) => {
         if (typeof window !== 'undefined') {
             if (wrapper === null) return;
             wrapper.innerHTML = '';
@@ -379,13 +379,13 @@ const QuillEditor: FC<QuillEditorProps> = ({
         )
             return;
         const socketHandler = (
-            range: any,
+            range: number,
             roomId: string,
             cursorId: string,
         ) => {
             if (roomId === fileId) {
                 const cursorToMove = localCursors.find(
-                    (c: any) => c.cursors()?.[0].id === cursorId,
+                    (c) => c.cursors()?.[0].id === cursorId,
                 );
                 if (cursorToMove) {
                     cursorToMove.moveCursor(cursorId, range);
@@ -409,13 +409,13 @@ const QuillEditor: FC<QuillEditorProps> = ({
         if (quill === null || socket === null || !fileId || !user) return;
 
         const selectionChangeHandler = (cursorId: string) => {
-            return (range: any, oldRange: any, source: any) => {
+            return (range: number, source: unknown) => {
                 if (source === 'user' && cursorId) {
                     socket.emit('send-cursor-move', range, fileId, cursorId);
                 }
             };
         };
-        const quillHandler = (delta: any, oldDelta: any, source: any) => {
+        const quillHandler = (delta: unknown, source: unknown) => {
             if (source !== 'user') return;
             if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
             setSaving(true);
@@ -438,7 +438,7 @@ const QuillEditor: FC<QuillEditorProps> = ({
 
     useEffect(() => {
         if (quill === null || socket === null) return;
-        const socketHandler = (deltas: any, id: string) => {
+        const socketHandler = (deltas: unknown, id: string) => {
             if (id === fileId) {
                 quill.updateContents(deltas);
             }
@@ -455,10 +455,10 @@ const QuillEditor: FC<QuillEditorProps> = ({
         const subscription = room
             .on('presence', { event: 'sync' }, () => {
                 const newState = room.presenceState();
-                const newCollaborators = Object.values(newState).flat() as any;
+                const newCollaborators = Object.values(newState).flat();
                 setCollaborators(newCollaborators);
                 if (user) {
-                    const allCursors: any = [];
+                    const allCursors: unknown[] = [];
                     newCollaborators.forEach(
                         (collaborator: {
                             id: string;

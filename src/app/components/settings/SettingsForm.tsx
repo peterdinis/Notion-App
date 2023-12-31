@@ -134,14 +134,14 @@ const SettingsForm: FC = () => {
     useEffect(() => {
         const showingWorkspace = state.workspaces.find(
             (workspace) => workspace.id === workspaceId,
-        ) as any;
+        )
         if (showingWorkspace) setWorkspaceDetails(showingWorkspace);
     }, [workspaceId, state]);
 
     useEffect(() => {
         if (!workspaceId) return;
         const fetchCollaborators = async () => {
-            const response = (await getCollaborators(workspaceId)) as any;
+            const response = (await getCollaborators(workspaceId)) 
             if (response.length) {
                 setPermissions('shared');
                 setCollaborators(response);

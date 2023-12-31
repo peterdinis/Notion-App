@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 const TrashRestore = () => {
     const { state, workspaceId } = useAppState();
     const [folders, setFolders] = useState<appFoldersType[] | []>([]);
-    const [files, setFiles] = useState<File[] | any[]>([]);
+    const [files, setFiles] = useState<File[] |[]>([]);
 
     useEffect(() => {
         const stateFolders =
@@ -65,14 +65,14 @@ const TrashRestore = () => {
                     <h3>Files</h3>
                     {files && files.map((file) => (
                         <Link
-                            key={file.id}
+                            key={file!.id}
                             className=' hover:bg-muted rounded-md p-2 flex items-center justify-between'
-                            href={`/dashboard/${file.workspaceId}/${file.folderId}/${file.id}`}
+                            href={`/dashboard/${file!.workspaceId}/${file!.folderId}/${file!.id}`}
                         >
                             <article>
                                 <aside className='flex items-center gap-2'>
                                     <FileIcon />
-                                    {file.title}
+                                    {file!.title}
                                 </aside>
                             </article>
                         </Link>

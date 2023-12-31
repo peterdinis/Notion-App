@@ -11,32 +11,32 @@ datasource db {
 }
 
 model User {
-   id        String @default(uuid()) @unique
-   email     String
-   password  String
-   fullName  String
-   workspaces Workspace[]
-   collaborators Collaborator[]
+  id            String         @unique @default(uuid())
+  email         String
+  password      String
+  fullName      String
+  workspaces    Workspace[]
+  collaborators Collaborator[]
 }
 
 model Workspace {
-  id        String @default(uuid()) @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt()
-  title     String
-  icon      String
-  data      String    @default("")
-  inTrash   String    @default("")
-  logo      String?
-  bannerUrl String
-  folders   Folder[]
-  user      User      @relation(fields: [userId], references: [id])
-  userId    String
+  id            String         @unique @default(uuid())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt()
+  title         String
+  icon          String
+  data          String         @default("")
+  inTrash       String         @default("")
+  logo          String?
+  bannerUrl     String
+  folders       Folder[]
+  user          User           @relation(fields: [userId], references: [id])
+  userId        String
   collaborators Collaborator[]
 }
 
 model Folder {
-  id          String @default(uuid()) @unique
+  id          String    @unique @default(uuid())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt()
   title       String
@@ -47,28 +47,28 @@ model Folder {
   bannerUrl   String
   workspace   Workspace @relation(fields: [workspaceId], references: [id])
   workspaceId String
-  files       Files[] 
+  files       Files[]
 }
 
 model Files {
-  id          String @default(uuid()) @unique
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt()
-  title       String
-  icon        String
-  data        String    @default("")
-  inTrash     String    @default("")
-  logo        String?
-  bannerUrl   String
-  folder      Folder    @relation(fields: [folderId], references: [id])
-  folderId    String
+  id        String   @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+  title     String
+  icon      String
+  data      String   @default("")
+  inTrash   String   @default("")
+  logo      String?
+  bannerUrl String
+  folder    Folder   @relation(fields: [folderId], references: [id])
+  folderId  String
 }
 
 model Collaborator {
-  id          String     @id @default(uuid())
-  workspace   Workspace  @relation(fields: [workspaceId], references: [id])
+  id          String    @id @default(uuid())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
   workspaceId String
-  createdAt   DateTime   @default(now()) @db.Timestamp(3)
-  user        User       @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now()) @db.Timestamp(3)
+  user        User      @relation(fields: [userId], references: [id])
   userId      String
 }

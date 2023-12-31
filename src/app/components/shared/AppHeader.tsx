@@ -1,14 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import {
-    ComponentPropsWithoutRef,
-    ElementRef,
-    FC,
-    forwardRef,
-    useState,
-} from 'react';
-import { cn } from '@/lib/utils';
+import { FC, useState, forwardRef } from 'react';
+
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -18,7 +12,15 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+
+const routes = [
+    { title: 'Features', href: '#features' },
+    { title: 'Reasources', href: '#resources' },
+    { title: 'Pricing', href: '#pricing' },
+    { title: 'Testimonials', href: '#testimonial' },
+];
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -58,7 +60,7 @@ const components: { title: string; href: string; description: string }[] = [
     },
 ];
 
-const AppHeader: FC = () => {
+const Header: FC = () => {
     const [path, setPath] = useState('#products');
     return (
         <header
@@ -137,6 +139,29 @@ const AppHeader: FC = () => {
                         </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
+                        <NavigationMenuTrigger
+                            onClick={() => setPath('#pricing')}
+                            className={cn({
+                                'dark:text-white': path === '#pricing',
+                                'dark:text-white/40': path !== '#pricing',
+                                'font-normal': true,
+                                'text-xl': true,
+                            })}
+                        >
+                            Pricing
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                            <ul className='grid w-[400px] gap-3 p-4  md:grid-row-2  '>
+                                <ListItem title='Pro Plan' href={'#'}>
+                                    Unlock full power with collaboration.
+                                </ListItem>
+                                <ListItem title={'free Plan'} href={'#'}>
+                                    Great for teams just starting out.
+                                </ListItem>
+                            </ul>
+                        </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
                         <NavigationMenuContent>
                             <ul
                                 className='grid w-[400px]
@@ -195,38 +220,39 @@ const AppHeader: FC = () => {
     );
 };
 
-export default AppHeader;
+export default Header;
 
-const ListItem = forwardRef<ElementRef<'a'>, ComponentPropsWithoutRef<'a'>>(
-    ({ className, title, children, ...props }, ref) => {
-        return (
-            <li>
-                <NavigationMenuLink asChild>
-                    <a
-                        ref={ref}
-                        className={cn(
-                            'group block select-none space-y-1 font-medium leading-none',
-                        )}
-                        {...props}
-                    >
-                        <div className='text-white text-sm font-medium leading-none'>
-                            {title}
-                        </div>
-                        <p
-                            className='group-hover:text-white/70
+const ListItem = forwardRef<
+    React.ElementRef<'a'>,
+    React.ComponentPropsWithoutRef<'a'>
+>(({ className, title, children, ...props }, ref) => {
+    return (
+        <li>
+            <NavigationMenuLink asChild>
+                <a
+                    ref={ref}
+                    className={cn(
+                        'group block select-none space-y-1 font-medium leading-none',
+                    )}
+                    {...props}
+                >
+                    <div className='text-white text-sm font-medium leading-none'>
+                        {title}
+                    </div>
+                    <p
+                        className='group-hover:text-white/70
             line-clamp-2
             text-sm
             leading-snug
             text-white/40
           '
-                        >
-                            {children}
-                        </p>
-                    </a>
-                </NavigationMenuLink>
-            </li>
-        );
-    },
-);
+                    >
+                        {children}
+                    </p>
+                </a>
+            </NavigationMenuLink>
+        </li>
+    );
+});
 
 ListItem.displayName = 'ListItem';

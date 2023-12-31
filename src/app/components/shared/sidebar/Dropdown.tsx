@@ -2,7 +2,7 @@
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, ChangeEvent } from 'react';
 import clsx from 'clsx';
 import { createFile, updateFile, updateFolder } from '@/lib/supabase/queries';
 import { useToast } from '../ui/use-toast';
@@ -152,7 +152,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             }
         }
     };
-    const folderTitleChange = (e: any) => {
+    const folderTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (!workspaceId) return;
         const fid = id.split('folder');
         if (fid.length === 1) {
@@ -166,7 +166,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             });
         }
     };
-    const fileTitleChange = (e: any) => {
+    const fileTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (!workspaceId || !folderId) return;
         const fid = id.split('folder');
         if (fid.length === 2 && fid[1]) {

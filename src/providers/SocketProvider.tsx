@@ -8,7 +8,10 @@ import {
     ReactNode,
 } from 'react';
 import { Socket } from 'socket.io';
-import { io as ClientIO } from 'socket.io-client';
+import { io as ClientIO, Socket as SocketClient } from 'socket.io-client';
+
+type SocketInstance = SocketClient;
+
 
 type SocketContextType = {
     socket: Socket | null;

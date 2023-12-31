@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { usePathname } from 'next/navigation';
 import { File, Folder, Workspace } from '@/types/StateTypes';
+import { getFiles } from '../queries/queries';
 
 export type appFoldersType = Folder & { files: File[] | [] };
 export type appWorkspacesType = Workspace & {
@@ -343,7 +344,7 @@ const AppStateProvider: React.FC<AppStateProviderProps> = ({ children }) => {
     useEffect(() => {
         if (!folderId || !workspaceId) return;
         const fetchFiles = async () => {
-            const { error: filesError, data } = await getFiles(folderId);
+            const { error: filesError, data: fileData } = await getFiles(folderId);
             if (filesError) {
                 console.log(filesError);
             }

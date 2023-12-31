@@ -1,7 +1,6 @@
 'use client';
 
 import {
-    appWorkspacesType,
     useAppState,
 } from '@/supabase/providers/StateProviders';
 import { FC, useState, useEffect } from 'react';
@@ -10,8 +9,8 @@ import WorkspaceCreator from './Creator';
 import CustomDialogTrigger from '../shared/CustomDialog';
 
 interface WorkspaceDropdownProps {
-    privateWorkspaces: Workspace[] | [];
-    sharedWorkspaces: Workspace[] | [];
+    privateWorkspaces: any[] | [];
+    sharedWorkspaces: any[] | [];
     collaboratingWorkspaces: any;
     defaultValue: any;
 }

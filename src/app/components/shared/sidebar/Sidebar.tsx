@@ -1,27 +1,20 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import React from 'react';
-
+import {FC} from 'react';
 import { cookies } from 'next/headers';
-import {
-    getCollaboratingWorkspaces,
-    getFolders,
-    getPrivateWorkspaces,
-    getSharedWorkspaces,
-    getUserSubscriptionStatus,
-} from '@/lib/supabase/queries';
 import { redirect } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
-import WorkspaceDropdown from './workspace-dropdown';
-import NativeNavigation from './native-navigation';
-import { ScrollArea } from '../ui/scroll-area';
-import FoldersDropdownList from './folders-dropdown-list';
-
+import { getCollaboratingWorkspaces, getFolders, getPrivateWorkspaces, getSharedWorkspaces } from '@/supabase/queries/queries';
+import { ScrollArea } from '@radix-ui/react-scroll-area';
+import UserCard from '../../users/UserCard';
+import WorkspaceDropdown from '../../workspace/WorkspaceDropdown';
+import FoldersDropdownList from './FoldersDropdown';
+import NativeNavigation from './NativeNavigation';
 interface SidebarProps {
     params: { workspaceId: string };
     className?: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
+const Sidebar: FC<SidebarProps> = async ({ params, className }) => {
     const supabase = createServerComponentClient({ cookies });
     //user
     const {
@@ -30,16 +23,12 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
 
     if (!user) return;
 
-    //subscr
-    const { data: subscriptionData, error: subscriptionError } =
-        await getUserSubscriptionStatus(user.id);
-
     //folders
-    const { data: workspaceFolderData, error: foldersError } = await getFolders(
+    const workspaceFolderData = await getFolders(
         params.workspaceId,
     );
     //error
-    if (subscriptionError || foldersError) redirect('/dashboard');
+    if (!workspaceFolderData) redirect('/dashboard');
 
     const [privateWorkspaces, collaboratingWorkspaces, sharedWorkspaces] =
         await Promise.all([
@@ -47,8 +36,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
             getCollaboratingWorkspaces(user.id),
             getSharedWorkspaces(user.id),
         ]);
-
-    //get all the different workspaces private collaborating shared
+        
     return (
         <aside
             className={twMerge(
@@ -66,10 +54,6 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
                         ...collaboratingWorkspaces,
                         ...sharedWorkspaces,
                     ].find((workspace) => workspace.id === params.workspaceId)}
-                />
-                <PlanUsage
-                    foldersLength={workspaceFolderData?.length || 0}
-                    subscription={subscriptionData}
                 />
                 <NativeNavigation myWorkspaceId={params.workspaceId} />
                 <ScrollArea
@@ -94,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
                     />
                 </ScrollArea>
             </div>
-            <UserCard subscription={subscriptionData} />
+            <UserCard />
         </aside>
     );
 };

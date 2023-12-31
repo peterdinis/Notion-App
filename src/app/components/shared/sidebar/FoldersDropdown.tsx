@@ -13,7 +13,7 @@ import { Accordion } from '@radix-ui/react-accordion';
 import TooltipComponent from '../TooltipComponent';
 
 interface FoldersDropdownListProps {
-    workspaceFolders: Folder[];
+    workspaceFolders: any[];
     workspaceId: string;
 }
 

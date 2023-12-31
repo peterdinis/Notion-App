@@ -59,9 +59,9 @@ const SettingsForm: FC = () => {
     const supabase = createClientComponentClient();
     const { state, workspaceId, dispatch } = useAppState();
     const [permissions, setPermissions] = useState('private');
-    const [collaborators, setCollaborators] = useState<User[] | []>([]);
+    const [collaborators, setCollaborators] = useState<any[] | []>([]);
     const [openAlertMessage, setOpenAlertMessage] = useState(false);
-    const [workspaceDetails, setWorkspaceDetails] = useState<Workspace>();
+    const [workspaceDetails, setWorkspaceDetails] = useState<any>();
     const titleTimerRef = useRef<ReturnType<typeof setTimeout>>();
     const [uploadingProfilePic, setUploadingProfilePic] = useState(false);
     const [uploadingLogo, setUploadingLogo] = useState(false);

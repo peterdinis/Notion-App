@@ -72,7 +72,7 @@ const FoldersDropdownList: FC<FoldersDropdownListProps> = ({
             type: 'ADD_FOLDER',
             payload: { workspaceId, folder: { ...newFolder, files: [] } as any },
         });
-        const {, error } = await createFolder(newFolder);
+        const {error } = await createFolder(newFolder);
         if (error) {
             toast({
                 title: 'Error',

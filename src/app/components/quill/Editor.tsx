@@ -1,6 +1,7 @@
 'use client';
 
 import React, {
+    FC,
     useCallback,
     useEffect,
     useMemo,
@@ -48,7 +49,7 @@ var TOOLBAR_OPTIONS = [
     ['clean'], // remove formatting button
 ];
 
-const QuillEditor: React.FC<QuillEditorProps> = ({
+const QuillEditor: FC<QuillEditorProps> = ({
     dirDetails,
     dirType,
     fileId,
@@ -60,13 +61,13 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     const router = useRouter();
     const { socket, isConnected } = useSocket();
     const pathname = usePathname();
-    const [quill, setQuill] = useState<any>(null);
+    const [quill, setQuill] = useState(null);
     const [collaborators, setCollaborators] = useState<
         { id: string; email: string; avatarUrl: string }[]
     >([]);
     const [deletingBanner, setDeletingBanner] = useState(false);
     const [saving, setSaving] = useState(false);
-    const [localCursors, setLocalCursors] = useState<any>([]);
+    const [localCursors, setLocalCursors] = useState([]);
 
     const details = useMemo(() => {
         let selectedDir;

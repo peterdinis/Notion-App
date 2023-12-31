@@ -4,13 +4,8 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import React, { useMemo, useState, ChangeEvent } from 'react';
 import clsx from 'clsx';
-import { createFile, updateFile, updateFolder } from '@/lib/supabase/queries';
-import { useToast } from '../ui/use-toast';
-import TooltipComponent from '../global/tooltip-component';
 import { PlusIcon, Trash } from 'lucide-react';
-import { File } from '@/lib/supabase/supabase.types';
 import { v4 } from 'uuid';
-import { useSupabaseUser } from '@/lib/providers/supabase-user-provider';
 import { useAppState } from '@/supabase/providers/StateProviders';
 import {
     AccordionItem,
@@ -18,6 +13,10 @@ import {
     AccordionContent,
 } from '@/components/ui/accordion';
 import EmojiPicker from '../EmojiComponent';
+import { useToast } from '@/components/ui/use-toast';
+import { useSupabaseUser } from '@/supabase/providers/UserProvider';
+import { updateFolder, updateFile, createFile } from '@/supabase/queries/queries';
+import TooltipComponent from '../TooltipComponent';
 
 interface DropdownProps {
     title: string;
@@ -57,7 +56,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
     //fileItitle
 
-    const fileTitle: string | undefined = useMemo(() => {
+    const fileTitle: any = useMemo(() => {
         if (listType === 'file') {
             const fileAndFolderId = id.split('folder');
             const stateTitle = state.workspaces
@@ -104,7 +103,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
         if (fId.length === 2 && fId[1]) {
             if (!fileTitle) return;
-            const { data, error } = await updateFile(
+            const {error } = await updateFile(
                 { title: fileTitle },
                 fId[1],
             );
@@ -131,7 +130,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 payload: {
                     workspaceId,
                     folderId: id,
-                    folder: { iconId: selectedEmoji },
+                    folder: "" as any
                 },
             });
             const { data, error } = await updateFolder(
@@ -274,7 +273,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
     const addNewFile = async () => {
         if (!workspaceId) return;
-        const newFile: File = {
+        const newFile = {
             folderId: id,
             data: null,
             createdAt: new Date().toISOString(),
@@ -284,7 +283,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             id: v4(),
             workspaceId,
             bannerUrl: '',
-        };
+        } as any;
         dispatch({
             type: 'ADD_FILE',
             payload: { file: newFile, folderId: id, workspaceId },
@@ -389,7 +388,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                                 title={file.title}
                                 listType='file'
                                 id={customFileId}
-                                iconId={file.iconId}
+                                iconId=""
                             />
                         );
                     })}

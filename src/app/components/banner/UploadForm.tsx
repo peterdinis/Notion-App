@@ -8,6 +8,7 @@ import {
     updateFolder,
     updateWorkspace,
 } from '@/supabase/queries/queries';
+import { UploadBannerFormSchema } from '@/types/BannerTypes';
 import { Label } from '@radix-ui/react-label';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Loader } from 'lucide-react';
@@ -58,7 +59,7 @@ const BannerUploadForm: FC<BannerUploadFormProps> = ({ dirType, id }) => {
                 dispatch({
                     type: 'UPDATE_FILE',
                     payload: {
-                        file: { bannerUrl: filePath },
+                        file: { bannerUrl: filePath as unknown as string },
                         fileId: id,
                         folderId,
                         workspaceId,
@@ -72,7 +73,7 @@ const BannerUploadForm: FC<BannerUploadFormProps> = ({ dirType, id }) => {
                     type: 'UPDATE_FOLDER',
                     payload: {
                         folderId: id,
-                        folder: { bannerUrl: filePath },
+                        folder: { bannerUrl: filePath as unknown as string },
                         workspaceId,
                     },
                 });
@@ -83,7 +84,7 @@ const BannerUploadForm: FC<BannerUploadFormProps> = ({ dirType, id }) => {
                 dispatch({
                     type: 'UPDATE_WORKSPACE',
                     payload: {
-                        workspace: { bannerUrl: filePath },
+                        workspace: { bannerUrl: filePath as unknown as string },
                         workspaceId,
                     },
                 });

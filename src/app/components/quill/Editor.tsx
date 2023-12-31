@@ -15,7 +15,6 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useAppState } from '@/supabase/providers/StateProviders';
 import { useSupabaseUser } from '@/supabase/providers/UserProvider';
 import { useSocket } from '@/providers/SocketProvider';
-import { Workspace } from '@/types/StateTypes';
 import { Button } from '@/components/ui/button';
 import {
     updateFile,
@@ -72,7 +71,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
     const router = useRouter();
     const { socket } = useSocket();
     const pathname = usePathname();
-    const [quill, setQuill] = useState(null);
+    const [quill, setQuill] = useState<any>(null);
     const [collaborators, setCollaborators] = useState<
         { id: string; email: string; avatarUrl: string }[]
     >([]);
@@ -120,7 +119,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
             .filter((val) => val !== 'dashboard' && val);
         const workspaceDetails = state.workspaces.find(
             (workspace) => workspace.id === workspaceId,
-        );
+        ) as any
         const workspaceBreadCrumb = workspaceDetails
             ? `${workspaceDetails.iconId} ${workspaceDetails.title}`
             : '';
@@ -130,8 +129,8 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
 
         const folderSegment = segments[1];
         const folderDetails = workspaceDetails?.folders.find(
-            (folder) => folder.id === folderSegment,
-        );
+            (folder: { id: string; }) => folder.id === folderSegment,
+        )
         const folderBreadCrumb = folderDetails
             ? `/ ${folderDetails.iconId} ${folderDetails.title}`
             : '';
@@ -142,8 +141,8 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
 
         const fileSegment = segments[2];
         const fileDetails = folderDetails?.files.find(
-            (file) => file.id === fileSegment,
-        );
+            (file: {id: string}) => file.id === fileSegment,
+        )
         const fileBreadCrumb = fileDetails
             ? `/ ${fileDetails.iconId} ${fileDetails.title}`
             : '';
@@ -312,12 +311,11 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
 
     useEffect(() => {
         if (!fileId) return;
-        let selectedDir;
         const fetchInformation = async () => {
             if (dirType === 'file') {
-                const { data: selectedDir, error } =
-                    await getFileDetails(fileId);
-                if (error || !selectedDir) {
+                    const selectedDirData = await getFileDetails(fileId)
+
+                if (!selectedDirData) {
                     return router.replace('/dashboard');
                 }
 

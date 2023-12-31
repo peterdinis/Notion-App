@@ -167,13 +167,19 @@ export const getSharedWorkspaces = async (userId: string) => {
 
 export const getFiles = async (folderId: string) => {
     try {
-        return await db.files.findMany({
+        const files = await db.files.findMany({
             where: {
                 folderId: {
                     equals: folderId,
                 },
             },
         });
+
+        if(!files) {
+            throw new Error("Files not found");
+        }
+
+        return files;
     } catch (error) {
         throw new Error(`Error fetching files: ${error}`);
     }
@@ -272,7 +278,7 @@ export const createFile = async (file: Prisma.FilesCreateInput) => {
 };
 
 export const updateFolder = async (
-    folder: Prisma.FolderCreateInput,
+    folder: any,
     folderId: string,
 ) => {
     try {
@@ -290,7 +296,7 @@ export const updateFolder = async (
 };
 
 export const updateFile = async (
-    file: Prisma.FilesCreateInput,
+    file: any,
     fileId: string,
 ) => {
     try {

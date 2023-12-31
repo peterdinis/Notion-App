@@ -2,6 +2,9 @@ import { Settings, Trash } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
+import TrashIcon from '../../icons/TrashIcon';
+import SettingIcon from '../../icons/SettingIcon';
+import HomeIcon from '../../icons/HomeIcon';
 
 interface NativeNavigationProps {
   myWorkspaceId: string;
@@ -25,7 +28,7 @@ const NativeNavigation: React.FC<NativeNavigationProps> = ({
           "
             href={`/dashboard/${myWorkspaceId}`}
           >
-            <CypressHomeIcon />
+            <HomeIcon />
             <span>My Workspace</span>
           </Link>
         </li>
@@ -40,7 +43,7 @@ const NativeNavigation: React.FC<NativeNavigationProps> = ({
             cursor-pointer
           "
           >
-            <CypressSettingsIcon />
+            <SettingIcon />
             <span>Settings</span>
           </li>
         </Settings>
@@ -54,7 +57,7 @@ const NativeNavigation: React.FC<NativeNavigationProps> = ({
             gap-2
           "
           >
-            <CypressTrashIcon />
+            <TrashIcon />
             <span>Trash</span>
           </li>
         </Trash>

@@ -10,7 +10,7 @@ interface WorkspaceDropdownProps {
     privateWorkspaces: Workspace[] | [];
     sharedWorkspaces: Workspace[] | [];
     collaboratingWorkspaces: any,
-    defaultValue: any | Workspace;
+    defaultValue: any;
 }
 
 const WorkspaceDropdown: FC<WorkspaceDropdownProps> = ({

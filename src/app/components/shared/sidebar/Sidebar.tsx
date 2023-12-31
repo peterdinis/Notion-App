@@ -1,9 +1,14 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import {FC} from 'react';
+import { FC } from 'react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
-import { getCollaboratingWorkspaces, getFolders, getPrivateWorkspaces, getSharedWorkspaces } from '@/supabase/queries/queries';
+import {
+    getCollaboratingWorkspaces,
+    getFolders,
+    getPrivateWorkspaces,
+    getSharedWorkspaces,
+} from '@/supabase/queries/queries';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import UserCard from '../../users/UserCard';
 import WorkspaceDropdown from '../../workspace/WorkspaceDropdown';
@@ -24,9 +29,7 @@ const Sidebar: FC<SidebarProps> = async ({ params, className }) => {
     if (!user) return;
 
     //folders
-    const workspaceFolderData = await getFolders(
-        params.workspaceId,
-    );
+    const workspaceFolderData = await getFolders(params.workspaceId);
     //error
     if (!workspaceFolderData) redirect('/dashboard');
 
@@ -36,7 +39,7 @@ const Sidebar: FC<SidebarProps> = async ({ params, className }) => {
             getCollaboratingWorkspaces(user.id),
             getSharedWorkspaces(user.id),
         ]);
-        
+
     return (
         <aside
             className={twMerge(

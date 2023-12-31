@@ -175,8 +175,8 @@ export const getFiles = async (folderId: string) => {
             },
         });
 
-        if(!files) {
-            throw new Error("Files not found");
+        if (!files) {
+            throw new Error('Files not found');
         }
 
         return files;
@@ -277,10 +277,7 @@ export const createFile = async (file: Prisma.FilesCreateInput) => {
     }
 };
 
-export const updateFolder = async (
-    folder: any,
-    folderId: string,
-) => {
+export const updateFolder = async (folder: any, folderId: string) => {
     try {
         await db.folder.update({
             where: {
@@ -295,10 +292,7 @@ export const updateFolder = async (
     }
 };
 
-export const updateFile = async (
-    file: any,
-    fileId: string,
-) => {
+export const updateFile = async (file: any, fileId: string) => {
     try {
         await db.files.update({
             where: {

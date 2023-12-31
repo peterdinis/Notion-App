@@ -344,15 +344,11 @@ const AppStateProvider: React.FC<AppStateProviderProps> = ({ children }) => {
     useEffect(() => {
         if (!folderId || !workspaceId) return;
         const fetchFiles = async () => {
-            const { error: filesError, data: fileData } =
-                await getFiles(folderId);
-            if (filesError) {
-                console.log(filesError);
-            }
-            if (!data) return;
+            const filesResponse = await getFiles(folderId);
+            if(!filesResponse) return;
             dispatch({
                 type: 'SET_FILES',
-                payload: { workspaceId, files: data, folderId },
+                payload: { workspaceId, files: filesResponse, folderId },
             });
         };
         fetchFiles();

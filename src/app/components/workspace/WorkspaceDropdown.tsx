@@ -1,8 +1,6 @@
 'use client';
 
-import {
-    useAppState,
-} from '@/supabase/providers/StateProviders';
+import { useAppState } from '@/supabase/providers/StateProviders';
 import { FC, useState, useEffect } from 'react';
 import SelectedWorkspace from './SelectedWorkspace';
 import WorkspaceCreator from './Creator';

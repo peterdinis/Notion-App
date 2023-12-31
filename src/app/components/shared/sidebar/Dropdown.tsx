@@ -15,7 +15,11 @@ import {
 import EmojiPicker from '../EmojiComponent';
 import { useToast } from '@/components/ui/use-toast';
 import { useSupabaseUser } from '@/supabase/providers/UserProvider';
-import { updateFolder, updateFile, createFile } from '@/supabase/queries/queries';
+import {
+    updateFolder,
+    updateFile,
+    createFile,
+} from '@/supabase/queries/queries';
 import TooltipComponent from '../TooltipComponent';
 
 interface DropdownProps {
@@ -103,10 +107,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
         if (fId.length === 2 && fId[1]) {
             if (!fileTitle) return;
-            const {error } = await updateFile(
-                { title: fileTitle },
-                fId[1],
-            );
+            const { error } = await updateFile({ title: fileTitle }, fId[1]);
             if (error) {
                 toast({
                     title: 'Error',
@@ -130,7 +131,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 payload: {
                     workspaceId,
                     folderId: id,
-                    folder: "" as any
+                    folder: '' as any,
                 },
             });
             const { data, error } = await updateFolder(
@@ -388,7 +389,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                                 title={file.title}
                                 listType='file'
                                 id={customFileId}
-                                iconId=""
+                                iconId=''
                             />
                         );
                     })}

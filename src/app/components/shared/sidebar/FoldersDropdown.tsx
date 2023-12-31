@@ -52,13 +52,13 @@ const FoldersDropdownList: FC<FoldersDropdownListProps> = ({
     useEffect(() => {
         return setFolders(
             state.workspaces.find((workspace) => workspace.id === workspaceId)
-                ?.folders || []
+                ?.folders || [],
         );
     }, [state]);
 
     //add folder
     const addFolderHandler = async () => {
-        const newFolder= {
+        const newFolder = {
             data: null,
             id: v4(),
             createdAt: new Date().toISOString(),
@@ -70,9 +70,12 @@ const FoldersDropdownList: FC<FoldersDropdownListProps> = ({
         } as any;
         dispatch({
             type: 'ADD_FOLDER',
-            payload: { workspaceId, folder: { ...newFolder, files: [] } as any },
+            payload: {
+                workspaceId,
+                folder: { ...newFolder, files: [] } as any,
+            },
         });
-        const {error } = await createFolder(newFolder);
+        const { error } = await createFolder(newFolder);
         if (error) {
             toast({
                 title: 'Error',
@@ -135,7 +138,9 @@ const FoldersDropdownList: FC<FoldersDropdownListProps> = ({
                             key={folder.id}
                             title={folder.title}
                             listType='folder'
-                            id={folder.id as any} iconId={''}                        />
+                            id={folder.id as any}
+                            iconId={''}
+                        />
                     ))}
             </Accordion>
         </>

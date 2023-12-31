@@ -119,7 +119,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
             .filter((val) => val !== 'dashboard' && val);
         const workspaceDetails = state.workspaces.find(
             (workspace) => workspace.id === workspaceId,
-        ) as any
+        ) as any;
         const workspaceBreadCrumb = workspaceDetails
             ? `${workspaceDetails.iconId} ${workspaceDetails.title}`
             : '';
@@ -129,8 +129,8 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
 
         const folderSegment = segments[1];
         const folderDetails = workspaceDetails?.folders.find(
-            (folder: { id: string; }) => folder.id === folderSegment,
-        )
+            (folder: { id: string }) => folder.id === folderSegment,
+        );
         const folderBreadCrumb = folderDetails
             ? `/ ${folderDetails.iconId} ${folderDetails.title}`
             : '';
@@ -141,8 +141,8 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
 
         const fileSegment = segments[2];
         const fileDetails = folderDetails?.files.find(
-            (file: {id: string}) => file.id === fileSegment,
-        )
+            (file: { id: string }) => file.id === fileSegment,
+        );
         const fileBreadCrumb = fileDetails
             ? `/ ${fileDetails.iconId} ${fileDetails.title}`
             : '';
@@ -151,27 +151,35 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
     }, [state, pathname, workspaceId]);
 
     //
-    const wrapperRef = useCallback(async (wrapper: { innerHTML: string; append: (arg0: HTMLDivElement) => void; } | null) => {
-        if (typeof window !== 'undefined') {
-            if (wrapper === null) return;
-            wrapper.innerHTML = '';
-            const editor = document.createElement('div');
-            wrapper.append(editor);
-            const Quill = (await import('quill')).default;
-            const QuillCursors = (await import('quill-cursors')).default;
-            Quill.register('modules/cursors', QuillCursors);
-            const q = new Quill(editor, {
-                theme: 'snow',
-                modules: {
-                    toolbar: TOOLBAR_OPTIONS,
-                    cursors: {
-                        transformOnTextChange: true,
+    const wrapperRef = useCallback(
+        async (
+            wrapper: {
+                innerHTML: string;
+                append: (arg0: HTMLDivElement) => void;
+            } | null,
+        ) => {
+            if (typeof window !== 'undefined') {
+                if (wrapper === null) return;
+                wrapper.innerHTML = '';
+                const editor = document.createElement('div');
+                wrapper.append(editor);
+                const Quill = (await import('quill')).default;
+                const QuillCursors = (await import('quill-cursors')).default;
+                Quill.register('modules/cursors', QuillCursors);
+                const q = new Quill(editor, {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: TOOLBAR_OPTIONS,
+                        cursors: {
+                            transformOnTextChange: true,
+                        },
                     },
-                },
-            });
-            setQuill(q);
-        }
-    }, []);
+                });
+                setQuill(q);
+            }
+        },
+        [],
+    );
 
     const restoreFileHandler = async () => {
         if (dirType === 'file') {
@@ -313,7 +321,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ dirDetails, dirType, fileId }) => {
         if (!fileId) return;
         const fetchInformation = async () => {
             if (dirType === 'file') {
-                    const selectedDirData = await getFileDetails(fileId)
+                const selectedDirData = await getFileDetails(fileId);
 
                 if (!selectedDirData) {
                     return router.replace('/dashboard');

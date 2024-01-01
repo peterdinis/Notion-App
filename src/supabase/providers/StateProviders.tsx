@@ -27,7 +27,7 @@ type Action =
     | {
           type: 'UPDATE_WORKSPACE';
           payload: {
-              workspace: Partial<appWorkspacesType>;
+              workspace: any;
               workspaceId: string;
           };
       }
@@ -62,7 +62,7 @@ type Action =
     | {
           type: 'UPDATE_FOLDER';
           payload: {
-              folder: Partial<appFoldersType>;
+              folder: any;
               workspaceId: string;
               folderId: string;
           };
@@ -70,7 +70,7 @@ type Action =
     | {
           type: 'UPDATE_FILE';
           payload: {
-              file: Partial<File>;
+              file: any;
               folderId: string;
               workspaceId: string;
               fileId: string;

@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { FC } from 'react';
 import { redirect } from 'next/navigation';
@@ -21,7 +21,7 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = async ({ params, className }) => {
-    const {user} = useSupabaseUser();
+    const { user } = useSupabaseUser();
 
     if (!user) return;
 

@@ -6,7 +6,7 @@ import ModeToggle from '../shared/ModeToggle';
 import { useSupabaseUser } from '@/supabase/providers/UserProvider';
 
 const UserCard: FC = async () => {
-    const {user} = useSupabaseUser();
+    const { user } = useSupabaseUser();
 
     const response = await db.user.findFirst({
         where: {

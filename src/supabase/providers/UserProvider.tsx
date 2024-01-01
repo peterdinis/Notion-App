@@ -34,7 +34,14 @@ export const SupabaseUserProvider: FC<SupabaseUserProviderProps> = ({
     const [user, setUser] = useState<AuthUser | null>(null);
     const { toast } = useToast();
 
-    const supabase = createClientComponentClient();
+    const supabase = createClientComponentClient(
+        {
+            supabaseUrl: process.env
+                .NEXT_PUBLIC_SUPABASE_URL as unknown as string,
+            supabaseKey: process.env
+                .NEXT_PUBLIC_SUPABASE_AVON_KEY as unknown as string,
+        },
+    );
 
     useEffect(() => {
         const getUser = async () => {

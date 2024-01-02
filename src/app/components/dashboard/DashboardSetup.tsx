@@ -1,6 +1,6 @@
 'use client';
 import { AuthUser } from '@supabase/supabase-js';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { CreateWorkspaceFormSchema } from '@/types/WorkspaceTypes';
@@ -25,7 +25,7 @@ interface DashboardSetupProps {
     user: AuthUser;
 }
 
-const DashboardSetup: React.FC<DashboardSetupProps> = ({ user }) => {
+const DashboardSetup: FC<DashboardSetupProps> = ({ user }) => {
     const { toast } = useToast();
     const router = useRouter();
     const [selectedEmoji, setSelectedEmoji] = useState('💼');
@@ -58,7 +58,7 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({ user }) => {
                         cacheControl: '3600',
                         upsert: true,
                     });
-                if (error) throw new Error('');
+                if (error) throw new Error(error as unknown as string);
                 filePath = data.path;
             } catch (error) {
                 console.log('Error', error);

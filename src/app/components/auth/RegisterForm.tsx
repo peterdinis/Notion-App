@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { supabaseClient } from '@/supabase/supabaseSetup';
+import { supabaseClient } from '@/supabase/setup/supabaseSetup';
 
 const RegisterForm: FC = () => {
     const router = useRouter();

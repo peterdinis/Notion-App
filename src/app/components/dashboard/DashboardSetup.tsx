@@ -19,7 +19,7 @@ import { Loader } from 'lucide-react';
 import { v4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import EmojiPicker from '../shared/EmojiComponent';
-import { supabaseClient } from '@/supabase/supabaseSetup';
+import { supabaseClient } from '@/supabase/setup/supabaseSetup';
 
 interface DashboardSetupProps {
     user: AuthUser;

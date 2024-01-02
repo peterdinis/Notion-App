@@ -1,6 +1,6 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+'use client';
+
 import { FC } from 'react';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import {
@@ -14,17 +14,14 @@ import UserCard from '../../users/UserCard';
 import WorkspaceDropdown from '../../workspace/WorkspaceDropdown';
 import FoldersDropdownList from './FoldersDropdown';
 import NativeNavigation from './NativeNavigation';
+import { useSupabaseUser } from '@/supabase/providers/UserProvider';
 interface SidebarProps {
     params: { workspaceId: string };
     className?: string;
 }
 
 const Sidebar: FC<SidebarProps> = async ({ params, className }) => {
-    const supabase = createServerComponentClient({ cookies });
-    //user
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+    const { user } = useSupabaseUser();
 
     if (!user) return;
 
